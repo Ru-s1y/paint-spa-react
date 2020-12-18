@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom'
+import Home from './components/Home'
+import Album from './components/Album'
+import Picture from './components/Picture'
+import Paint from './components/Paint'
+import NavBar from './components/Navbar'
 
-function App() {
+export default function App() {
+  const history = useHistory()
+  const moveUrl = (url) => {
+    history.push(url)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <div>
+    <Router>
+      <NavBar moveUrl={moveUrl} />
 
-export default App;
+      <Switch>
+        <Route path="/"><Home /></Route>
+        <Route path="/album"><Album /></Route>
+        <Route path="/picture"><Picture /></Route>
+        <Route path="/paint"><Paint /></Route>
+      </Switch>
+    </Router>
+    </div>
+  )
+}
