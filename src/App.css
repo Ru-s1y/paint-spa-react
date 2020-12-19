@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+
+.my-canvas {
+  border: solid 1px lightgray;
+  box-shadow: 0 0 5px gray;
+  margin-left: 1rem;
+}
