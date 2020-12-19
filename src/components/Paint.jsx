@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react'
-import axios from 'axios'
-import '../App.css'
+import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
+import '../App.css';
 import { 
   IconButton, 
   Drawer, 
@@ -11,19 +11,47 @@ import {
   TextField, 
   Switch, 
   FormControlLabel, 
-  Input
+  Divider,
+  makeStyles,
+  useTheme,
 } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
-// import SettingsIcon from '@material-ui/icons/Settings';
 import UndoIcon from '@material-ui/icons/Undo';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEraser } from "@fortawesome/free-solid-svg-icons";
+
+const drawerWidth = 240
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+  },
+  drawerHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-end',
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: drawerWidth,
+  },
+}))
 
 export default function Paint () {
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
+  const classes = useStyles()
+  const theme = useTheme()
   const [drawFlg, setDrawFlg] = useState(false)
   const [open, setOpen] = useState(false)
   const [fOpen, setFOpen] = useState(false)
@@ -155,7 +183,7 @@ export default function Paint () {
     // { headers: {'Authorization': `Bearer ${storage}`}},
     { withCredentials: true }
     ).then(response => {
-      // console.log('picture upload', response.data)
+      console.log('picture upload', response.data)
       clearAttribute()
       // alert.show('ピクチャーを保存しました。', {type: types.SUCCESS})
     }).catch(error => {
@@ -175,13 +203,20 @@ export default function Paint () {
     })
   }
 
-  const changePage = (e, newValue) => {
-    setPicture({name: newValue})
-  }
+  // const changePage = (e, newValue) => {
+  //   setPicture({page: newValue})
+  // }
 
   const drawer = (
     <div>
       <List>
+        <div className={classes.drawerHeader}>
+          <span style={{color: 'gray'}}>ペンの設定</span>
+          <IconButton onClick={() => setOpen(false)}>
+            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          </IconButton>
+        </div>
+        <Divider />
         <ListItem>
           <p style={{marginRight: '1em'}}>線幅</p>
           <input type="color" value={lineColor} list="color-list" onChange={ e => handleLineColor(e) } />
@@ -197,6 +232,7 @@ export default function Paint () {
           onChange={handleLineChange}
         />
         </ListItem>
+        <Divider />
         <ListItem>
           <p style={{marginRight: '1em'}}>線影</p>
           <input type="color" value={shadowColor} list="color-list" onChange={(e) => handleShadowColor(e)} />
@@ -212,41 +248,65 @@ export default function Paint () {
           onChange={handleShadowBlur}
         />
         </ListItem>
+        <Divider />
       </List>
     </div>
   )
 
   const formMenu = (
-    <div style={{width: "15rem"}}>
-      <form style={{margin: "1rem"}}>
+    <div style={{margin: "1em"}}>
+      <form>
+        <div>
+          <IconButton onClick={() => setFOpen(false)}>
+            <ChevronRightIcon />
+          </IconButton>
+          <span style={{color: 'gray'}}>登録フォーム</span>
+        </div>
+        <Divider />
         <div>
           <TextField
             id="standard-password-input"
-            label="Name"
+            label="画像の名前"
           />
           <TextField
             id="standard-password-input"
-            label="Description"
+            label="説明"
             multiline
           />
           <FormControlLabel
             control={<Switch checked={publish} onChange={toggleChecked} color="primary" />}
-            label="Publish"
-            style={{margin: '1rem auto'}}
+            label="公開"
+            style={{margin: '1rem auto', color: "gray"}}
           />
-          <FormControlLabel
-            control={<Input value={picture.page} onChange={changePage} />}
+          {/* <FormControlLabel
             label="page"
-          />
+            style={{ color: "gray" }}
+            control={
+              <Input 
+                style={{width: "50%", marginLeft: "1rem"}} 
+                type="number" 
+                value={picture.page} 
+                min={0}
+                onChange={changePage}
+              />
+            }
+          /> */}
         </div>
-        <Button variant="contained" color="primary" onClick={(e) => handlePictureSubmit(e)}>保存</Button>
+        <Divider />
+        <Button 
+          variant="contained" 
+          color="primary" 
+          style={{marginTop: '1em'}}
+          onClick={(e) => handlePictureSubmit(e)}
+        >保存
+        </Button>
       </form>
     </div>
   )
 
   return(
-    <div>
-      <div style={{display: 'flex'}}>
+    <div className="canvas-container">
+      <div>
         <IconButton onClick={() => setOpen(true)}>
           <EditIcon />
         </IconButton>
@@ -265,7 +325,7 @@ export default function Paint () {
       </div>
 
       <canvas
-        id="mycanvas"
+        id="myCanvas"
         width={width}
         height={height}
         ref={canvasRef}
@@ -275,10 +335,21 @@ export default function Paint () {
         onMouseMove={drawing}
         onMouseLeave={finishDrawing}
       >HTML5に対応したブラウザを使用してください。</canvas>
-      <Drawer open={open} onClose={() => setOpen(false)} >
+      <Drawer 
+        open={open} 
+        onClose={() => setOpen(false)} 
+        className={classes.drawer}
+        classes={{ paper: classes.drawerPaper }}
+      >
         {drawer}
       </Drawer>
-      <Drawer anchor="right" open={fOpen} onClose={() => setFOpen(false)} >
+      <Drawer 
+        anchor="right" 
+        open={fOpen} 
+        onClose={() => setFOpen(false)} 
+        className={classes.drawer}
+        classes={{ paper: classes.drawerPaper }}
+      >
         {formMenu}
       </Drawer>
     </div>

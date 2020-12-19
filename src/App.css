@@ -42,3 +42,18 @@
   box-shadow: 0 0 5px gray;
   margin-left: 1rem;
 }
+
+.canvas-container {
+  display: 'flex';
+  align-items: 'center';
+  justify-content: 'center';
+}
+
+a {
+  color: gray;
+  text-decoration: none;
+}
+
+a:visited {
+  color: gray;
+}
