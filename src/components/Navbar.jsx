@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom'
+import { withRouter, useHistory, Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Button, IconButton, Toolbar, Typography, Drawer, List, ListItem, Link } from '@material-ui/core';
+import { AppBar, Button, IconButton, Toolbar, Typography, Drawer, List, ListItem } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles((theme) => ({
@@ -17,31 +17,33 @@ const useStyles = makeStyles((theme) => ({
 }));
 const NavBar = (props) => {
   const [open, setOpen] = useState(false)
+  const classes = useStyles()
+  const history = useHistory()
 
-  const classes = useStyles();
+  const clickLink = (e, url) => {
+    history.push(url)
+    setOpen(false)
+    e.preventDefault()
+  }
 
   const drawer = (
-    <div>
+    <div style={{width: "10rem"}}>
       <List>
-        <ListItem button>
-          <Link href="/" onClick={e => e.preventDefault}>Home</Link>
+        <ListItem button onClick={e => clickLink(e, '/')}>
+          <Link to="/">Home</Link>
+        </ListItem >
+        <ListItem button onClick={e => clickLink(e, '/album')}>
+          <Link to="/album">Album</Link>
         </ListItem>
-        <ListItem button>
-          <Link href="/album" onClick={e => e.preventDefault}>Album</Link>
+        <ListItem button onClick={e => clickLink(e, '/picture')}>
+          <Link to="/picture">Picture</Link>
         </ListItem>
-        <ListItem button>
-          <Link href="/picture" onClick={e => e.preventDefault}>Picture</Link>
-        </ListItem>
-        <ListItem button>
-          <Link href="/paint" onClick={e => e.preventDefault}>Paint</Link>
+        <ListItem button onClick={e => clickLink(e, '/paint')}>
+          <Link to="/paint">Paint</Link>
         </ListItem>
       </List>
     </div>
   )
-
-  const changePage = (url) => {
-    props.moveUrl(url)
-  }
 
   return (
     <>
@@ -51,7 +53,7 @@ const NavBar = (props) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            News
+            Sketcher
           </Typography>
           <Button style={{marginLeft: "auto"}} color="inherit">Login</Button>
         </Toolbar>
