@@ -31,7 +31,6 @@ export default function Picture () {
                   <p>{picture.name}</p>
                   <p>{picture.description}</p>
                   <p>{picture.user}</p>
-                  <p>{picture.name}</p>
                 </div>
               )
             })}
