@@ -1,28 +1,24 @@
-import React, { useState } from 'react';
-import clsx from 'clsx';
+import React, { useState, useContext } from 'react';
 import { withRouter, useHistory, Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import { 
   AppBar, 
-  Button, 
   IconButton, 
   Toolbar, 
   Typography, 
   Drawer, 
   List, 
   ListItem,
-  Modal,
-  TextField,
-  Backdrop,
-  FormControl,
-  InputLabel,
-  Input,
-  InputAdornment,
   Divider
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+
+import Login from '../services/Login'
+import Registrations from '../services/Registrations'
+import Logout from '../services/Logout'
+
+import { UserContext } from '../services/Menu'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,35 +54,15 @@ const useStyles = makeStyles((theme) => ({
 
 const NavBar = (props) => {
   const [open, setOpen] = useState(false)
-  const [modal, setModal] = useState(false)
   const classes = useStyles()
   const history = useHistory()
-
-  const [values, setValues] = useState({
-    email: '',
-    password: '',
-    showPassword: false,
-  })
-
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
-
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
-  };
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+  const user = useContext(UserContext)
 
   const clickLink = (e, url) => {
     history.push(url)
     setOpen(false)
     e.preventDefault()
   }
-
-  const handleClose = () => setModal(false)
 
   const drawer = (
     <div style={{width: "10rem"}}>
@@ -109,44 +85,6 @@ const NavBar = (props) => {
     </div>
   )
 
-  const modalForm = (
-    <div className={classes.paper}>
-      <form>
-        <h2>ログインフォーム</h2>
-        <TextField 
-          className={clsx(classes.margin, classes.textField)} 
-          id="standard-basic" 
-          label="Email" onChange={handleChange('email')}
-        />
-        <br/>
-        <FormControl className={clsx(classes.margin, classes.textField)}>
-          <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-          <Input
-            id="standard-adornment-password"
-            type={values.showPassword ? 'text' : 'password'}
-            value={values.password}
-            onChange={handleChange('password')}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                >
-                  {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-        </FormControl>
-        <div style={{textAlign: "center"}}>
-          <Button style={{marginTop: "1em"}} variant="contained" color="primary">Login</Button>
-          <p><b style={{color: "royalblue"}}>新規登録</b> または <b style={{color: "royalblue"}}>ゲスト</b></p> 
-        </div>
-      </form>
-    </div>
-  )
-
   return (
     <>
       <AppBar position="static">
@@ -157,29 +95,25 @@ const NavBar = (props) => {
           <Typography variant="h6" className={classes.title}>
             Sketch
           </Typography>
-          <Button 
-            style={{marginLeft: "auto"}} 
-            color="inherit"
-            onClick={() => setModal(true)}
-          >Login</Button>
+          {!user.id
+            ? <>
+                <Login setUser={props.setUser} />
+                <Registrations setUser={props.setUser} />
+              </>
+            : <>
+                <IconButton style={{color: "white"}}>
+                  <AccountCircleIcon />
+                </IconButton>
+                <span >{user.name}</span>
+                <Logout setUser={props.setUser} setExp={props.setExp} />
+              </>
+          }
         </Toolbar>
       </AppBar>
 
       <Drawer open={open} onClose={() => setOpen(false)} >
         {drawer}
       </Drawer>
-
-      <Modal
-        open={modal}
-        onClose={handleClose}
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        className={classes.modal}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-      >
-        {modalForm}
-      </Modal>
     </>
   );
 }

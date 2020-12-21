@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import axios from 'axios';
+import { useAlert, types } from 'react-alert'
 import '../App.css';
 import { 
   IconButton, 
@@ -23,6 +24,8 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEraser } from "@fortawesome/free-solid-svg-icons";
+
+import { UserContext } from '../services/Menu'
 
 const drawerWidth = 240
 
@@ -48,6 +51,9 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export default function Paint () {
+  const user = useContext(UserContext)
+  const alert = useAlert()
+
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
   const classes = useStyles()
@@ -176,19 +182,18 @@ export default function Paint () {
       description: picture.description,
       image: dataURL,
       publish: publish,
-      page: picture.page
+      user_id: user.id
     }
     axios.post(`${process.env.REACT_APP_SERVER_URL}/pictures`,
     { picture: pictureObject },
-    // { headers: {'Authorization': `Bearer ${storage}`}},
     { withCredentials: true }
     ).then(response => {
       console.log('picture upload', response.data)
       clearAttribute()
-      // alert.show('ピクチャーを保存しました。', {type: types.SUCCESS})
+      alert.show('ピクチャーを保存しました。', {type: types.SUCCESS})
     }).catch(error => {
       console.log('err', error)
-      // alert.show('ピクチャーを保存できませんでした。', {type: types.ERROR})
+      alert.show('ピクチャーを保存できませんでした。', {type: types.ERROR})
     })
     // console.log('pictureObject', pictureObject)
     e.preventDefault()
@@ -278,19 +283,6 @@ export default function Paint () {
             label="公開"
             style={{margin: '1rem auto', color: "gray"}}
           />
-          {/* <FormControlLabel
-            label="page"
-            style={{ color: "gray" }}
-            control={
-              <Input 
-                style={{width: "50%", marginLeft: "1rem"}} 
-                type="number" 
-                value={picture.page} 
-                min={0}
-                onChange={changePage}
-              />
-            }
-          /> */}
         </div>
         <Divider />
         <Button 
@@ -319,9 +311,11 @@ export default function Paint () {
         <IconButton onClick={() => canvasClear()}>
           <DeleteIcon />
         </IconButton>
-        <IconButton onClick={() => setFOpen(true)}>
-          <SaveIcon />
-        </IconButton>
+        {user.id &&
+          <IconButton onClick={() => setFOpen(true)}>
+            <SaveIcon />
+          </IconButton>
+        }
       </div>
 
       <canvas
