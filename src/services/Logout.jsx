@@ -11,7 +11,7 @@ export default function Logout (props) {
   const alert = useAlert()
 
   const clickLogout = (e) => {
-    axios.delete('http://localhost:3001/api/v1/auth/user_token',
+    axios.delete(`${process.env.REACT_APP_SERVER_URL}/auth/user_token`,
       { withCredentials: true }
       ).then(response => {
         localStorage.removeItem('exp')
