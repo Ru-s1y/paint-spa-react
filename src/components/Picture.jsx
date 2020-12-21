@@ -54,7 +54,7 @@ export default function Picture () {
       </Grid>
       {pictures.length
         ?
-          <Grid>
+          <Grid style={{display: "flex"}}>
             {pictures.map((picture) => {
               return (
                 <Grid item key={picture.id} style={{margin: "2rem"}}>
@@ -97,7 +97,7 @@ export default function Picture () {
               )
             })}
           </Grid>
-        : <p>{status}</p>
+        : <p style={{margin: "2rem"}}>{status}</p>
       }
     </div>
   )

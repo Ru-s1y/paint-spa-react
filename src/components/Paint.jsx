@@ -26,6 +26,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEraser } from "@fortawesome/free-solid-svg-icons";
 
 import { UserContext } from '../services/Menu'
+import Cursor from '../config/Cursor'
 
 const drawerWidth = 240
 
@@ -304,38 +305,44 @@ export default function Paint () {
   )
 
   return(
-    <div className="canvas-container">
-      <div>
-        <IconButton onClick={() => setOpen(true)}>
-          <EditIcon />
-        </IconButton>
-        <IconButton onClick={() => handleSetEraser()}>
-          <FontAwesomeIcon icon={faEraser} style={{color: `${fontClr}`}} />
-        </IconButton>
-        <IconButton>
-          <UndoIcon />
-        </IconButton>
-        <IconButton onClick={() => canvasClear()}>
-          <DeleteIcon />
-        </IconButton>
-        {user.id &&
-          <IconButton onClick={() => setFOpen(true)}>
-            <SaveIcon />
+    <div>
+      <div className="canvas-container">
+        <div>
+          <IconButton onClick={() => setOpen(true)}>
+            <EditIcon />
           </IconButton>
-        }
+          <IconButton onClick={() => handleSetEraser()}>
+            <FontAwesomeIcon icon={faEraser} style={{color: `${fontClr}`}} />
+          </IconButton>
+          <IconButton>
+            <UndoIcon />
+          </IconButton>
+          <IconButton onClick={() => canvasClear()}>
+            <DeleteIcon />
+          </IconButton>
+          {user.id &&
+            <IconButton onClick={() => setFOpen(true)}>
+              <SaveIcon />
+            </IconButton>
+          }
+        </div>
+
+        <canvas
+          id="myCanvas"
+          width={width}
+          height={height}
+          ref={canvasRef}
+          className="my-canvas"
+          onMouseDown={startDrawing}
+          onMouseUp={finishDrawing}
+          onMouseMove={drawing}
+          onMouseLeave={finishDrawing}
+        >
+          HTML5に対応したブラウザを使用してください。
+        </canvas>
+        <Cursor lineColor={lineColor} lineWid={lineWid} shadowColor={shadowColor} shadowBlur={shadowBlur} />
       </div>
 
-      <canvas
-        id="myCanvas"
-        width={width}
-        height={height}
-        ref={canvasRef}
-        className="my-canvas"
-        onMouseDown={startDrawing}
-        onMouseUp={finishDrawing}
-        onMouseMove={drawing}
-        onMouseLeave={finishDrawing}
-      >HTML5に対応したブラウザを使用してください。</canvas>
       <Drawer 
         open={open} 
         onClose={() => setOpen(false)} 

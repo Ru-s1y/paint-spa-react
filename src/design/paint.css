@@ -1,0 +1,34 @@
+
+
+.draw {
+  display: flex;
+  width: 100%;
+  z-index: 1;
+}
+
+.canvas-wrap {
+  position: relative;
+  width: 100%;
+  overflow-x: scroll;
+  cursor: none;
+  /* cursor: crosshair; */
+  /* border: solid 1px red; */
+}
+
+/* カーソル */
+.cursor {
+  width: 8px;
+  height: 8px;
+  background: rgba(0,0,0,0.75);
+  border-radius: 50%;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 1;
+  transition: all 150ms ease;
+  transition-property: opacity;
+}
+
+.cursor--hidden {
+  opacity: 0;
+}

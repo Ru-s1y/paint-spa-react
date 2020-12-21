@@ -22,7 +22,7 @@ export default function Album () {
 
   return(
     <div>
-      <Grid style={{margin: "1rem"}}>
+      <Grid style={{margin: "2rem"}}>
         <h2>Album</h2>
         {user.id &&
           <Button variant="contained" color="primary">アルバム作成</Button>
@@ -42,7 +42,7 @@ export default function Album () {
               )
             })}
           </Grid>
-        : <p style={{margin: "1rem"}}>{status}</p>
+        : <p style={{margin: "2rem"}}>{status}</p>
       }
     </div>
   )
