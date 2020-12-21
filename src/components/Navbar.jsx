@@ -13,6 +13,10 @@ import {
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import HomeIcon from '@material-ui/icons/Home';
+import PanoramaIcon from '@material-ui/icons/Panorama';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
+import BrushIcon from '@material-ui/icons/Brush';
 
 import Login from '../services/Login'
 import Registrations from '../services/Registrations'
@@ -70,16 +74,20 @@ const NavBar = (props) => {
       <Divider />
       <List>
         <ListItem button onClick={e => clickLink(e, '/')}>
-          <Link to="/">Home</Link>
+          <IconButton><HomeIcon /></IconButton>
+            <Link to="/">Home</Link>
         </ListItem >
-        <ListItem button onClick={e => clickLink(e, '/album')}>
-          <Link to="/album">Album</Link>
-        </ListItem>
         <ListItem button onClick={e => clickLink(e, '/picture')}>
+          <IconButton><PanoramaIcon /></IconButton>
           <Link to="/picture">Picture</Link>
         </ListItem>
         <ListItem button onClick={e => clickLink(e, '/paint')}>
+          <IconButton><BrushIcon /></IconButton>
           <Link to="/paint">Paint</Link>
+        </ListItem>
+        <ListItem button onClick={e => clickLink(e, '/album')}>
+          <IconButton><MenuBookIcon /></IconButton>
+          <Link to="/album">Album</Link>
         </ListItem>
       </List>
     </div>
