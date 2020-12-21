@@ -53,7 +53,7 @@ export default function Registrations (props) {
   const classes = useStyles()
 
   const submitRegistration = e => {
-    axios.post('http://localhost:3001/api/v1/auth/registrations',
+    axios.post(`${process.env.REACT_APP_SERVER_URL}/auth/registrations`,
     { user: {
         name: values.name,
         email: values.email,

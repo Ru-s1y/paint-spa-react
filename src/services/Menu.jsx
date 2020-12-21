@@ -16,25 +16,21 @@ export const UserContext = createContext()
 
 export default function Menu () {
   const [user, setUser] = useState({})
-  // const [loggedIn, setLoggedIn] = useState(false)
   const [exp, setExp] = useState(localStorage.getItem('exp'))
 
   useEffect(() => {
     if (exp) {
       if (new Date().getTime() < exp) {
-        axios.get('http://localhost:3001/api/v1/auth/users/current_user',
+        axios.get(`${process.env.REACT_APP_SERVER_URL}/auth/users/current_user`,
         { withCredentials: true }
         ).then(response => {
           setUser(response.data)
-          // setLoggedIn(true)
           // console.log(response.data)
         }).catch(error => {
           console.log(error)
           setUser({})
-          // setLoggedIn(false)
         })
       } else {
-        // setLoggedIn(false)
         setExp('')
         localStorage.removeItem('exp')
         console.log('ログインしてください。')
@@ -43,9 +39,6 @@ export default function Menu () {
       console.log('expがない')
     }
   }, [exp])
-
-  // console.log('loggedInStatus: ', loggedIn)
-  // console.log('exp:', exp)
 
   return (
     <div>

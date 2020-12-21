@@ -52,7 +52,7 @@ export default function Login (props) {
   const [modal, setModal] = useState(false)
 
   const submitLogin = (e) => {
-    axios.post('http://localhost:3001/api/v1/auth/user_token',
+    axios.post(`${process.env.REACT_APP_SERVER_URL}/auth/user_token`,
       { user: { 
           email: values.email, 
           password: values.password 
