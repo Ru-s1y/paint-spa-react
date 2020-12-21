@@ -76,10 +76,9 @@ export default function Paint () {
   // const [saveClr, setSaveClr] = useState('gray')
   const dpr = window.devicePixelRatio || 1
 
-  const [picture, setPicture] = useState({
+  const [values, setValues] = useState({
     name: '',
     description: '',
-    page: '',
   })
 
   useEffect(() => {
@@ -177,18 +176,24 @@ export default function Paint () {
   const handlePictureSubmit = e => {
     const cvs = document.getElementById('myCanvas')
     const dataURL = cvs.toDataURL() // 画像データ base64形式
-    const pictureObject = {
-      name: picture.name,
-      description: picture.description,
-      image: dataURL,
-      publish: publish,
-      user_id: user.id
-    }
+    // const pictureObject = {
+    //   name: values.name,
+    //   description: values.description,
+    //   image: dataURL,
+    //   publish: publish,
+    //   // user_id: user.id
+    // }
     axios.post(`${process.env.REACT_APP_SERVER_URL}/pictures`,
-    { picture: pictureObject },
+    { picture: { 
+        name: values.name,
+        description: values.description,
+        image: dataURL,
+        publish: publish
+    }},
     { withCredentials: true }
     ).then(response => {
-      console.log('picture upload', response.data)
+      // console.log('picture upload', response.data)
+      setFOpen(false)
       clearAttribute()
       alert.show('ピクチャーを保存しました。', {type: types.SUCCESS})
     }).catch(error => {
@@ -201,16 +206,16 @@ export default function Paint () {
 
   // stateのクリア
   const clearAttribute = () => {
-    setPicture({
+    setValues({
       name: '',
       description: '',
       page: ''
     })
   }
 
-  // const changePage = (e, newValue) => {
-  //   setPicture({page: newValue})
-  // }
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
 
   const drawer = (
     <div>
@@ -272,11 +277,13 @@ export default function Paint () {
           <TextField
             id="standard-password-input"
             label="画像の名前"
+            onChange={handleChange('name')}
           />
           <TextField
             id="standard-password-input"
             label="説明"
             multiline
+            onChange={handleChange('description')}
           />
           <FormControlLabel
             control={<Switch checked={publish} onChange={toggleChecked} color="primary" />}
