@@ -35,6 +35,21 @@ export default function Album () {
           current: response.data.meta.current_page,
           total: response.data.meta.total_pages
         })
+=======
+import { Button, Grid } from '@material-ui/core'
+
+import { UserContext } from '../services/Menu'
+
+export default function Album () {
+  const [albums, setAlbums] = useState([])
+  const user = useContext(UserContext)
+  const [status, setStatus] = useState("Loading...")
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/albums`, 
+      { withCredentials: true }
+      ).then(response => {
+        setAlbums(response.data)
       }).catch(error => {
         console.log(error)
       })
