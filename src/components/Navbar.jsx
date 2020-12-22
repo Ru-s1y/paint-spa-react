@@ -89,6 +89,12 @@ const NavBar = (props) => {
           <IconButton><MenuBookIcon /></IconButton>
           <Link to="/album">Album</Link>
         </ListItem>
+        {user.id &&
+          <ListItem button onClick={e => clickLink(e, '/mypage')}>
+            <IconButton><AccountCircleIcon /></IconButton>
+            <Link to="/mypage">MyPage</Link>
+          </ListItem>
+        }
       </List>
     </div>
   )

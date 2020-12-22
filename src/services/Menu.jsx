@@ -11,6 +11,8 @@ import Picture from '../components/Picture'
 import Paint from '../components/Paint'
 import NavBar from '../components/Navbar'
 import axios from 'axios'
+import MyPage from '../components/MyPage'
+// import Error from '../components/Error'
 
 export const UserContext = createContext()
 
@@ -58,6 +60,11 @@ export default function Menu () {
             <Route path="/paint" exact>
               <Paint />
             </Route>
+            {user.id &&
+              <Route path="/mypage" exact>
+                <MyPage />
+              </Route>
+            }
           </Switch>
         </UserContext.Provider>
       </Router>
