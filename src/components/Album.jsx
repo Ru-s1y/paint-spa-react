@@ -9,11 +9,12 @@ import {
   Typography,
   IconButton
 } from '@material-ui/core'
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import cardStyles from '../design/cardStyles'
 
 import { UserContext } from '../services/Menu'
 import Thumbnail from '../services/Thumbnail'
+// import FavoriteIcon from '@material-ui/icons/Favorite';
+import Favorite from '../services/Favorite'
 
 export default function Album () {
   const classes = cardStyles()
@@ -27,8 +28,7 @@ export default function Album () {
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/albums`, 
-      { params: { page: page.current } },
-      { withCredentials: true }
+      { params: { page: page.current } }
       ).then(response => {
         setAlbums(response.data.albums)
         setPage({
@@ -63,11 +63,11 @@ export default function Album () {
                       {album.description}
                     </Typography>
                   </CardContent>
-                  <CardActions disableSpacing>
-                    <IconButton>
-                      <FavoriteIcon />
-                    </IconButton>
-                  </CardActions>
+                  {user.id &&
+                    <CardActions disableSpacing>
+                      <Favorite favorite={album} url="albums" />
+                    </CardActions>
+                  }
                 </Card>
               )
             })}

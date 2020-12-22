@@ -15,9 +15,9 @@ import {
 } from '@material-ui/core'
 import useStyles from '../design/useStyles'
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import FavoriteIcon from '@material-ui/icons/Favorite';
 
 import { UserContext } from '../services/Menu'
+import Favorite from '../services/Favorite'
 
 export default function Picture () {
   const [pictures, setPictures] = useState([])
@@ -32,8 +32,7 @@ export default function Picture () {
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/pictures`,
-      { params: { page: page.current } },
-      { withCredentials: true }
+      { params: { page: page.current } }
       ).then(response => {
         setPictures(response.data.pictures)
         setPage({
@@ -89,10 +88,8 @@ export default function Picture () {
                       </Typography>
                     </CardContent>
                     {user.id &&
-                      <CardActions>
-                        <IconButton aria-label="add to favorites">
-                          <FavoriteIcon />
-                        </IconButton>
+                      <CardActions disableSpacing>
+                        <Favorite favorite={picture} url="pictures" />
                       </CardActions>
                     }
                   </Card>
