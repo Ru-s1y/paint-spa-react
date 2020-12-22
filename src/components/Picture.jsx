@@ -15,6 +15,7 @@ import {
 } from '@material-ui/core'
 import useStyles from '../design/useStyles'
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import AddIcon from '@material-ui/icons/Add';
 
 import { UserContext } from '../services/Menu'
 import Favorite from '../services/Favorite'
@@ -43,7 +44,7 @@ export default function Picture () {
         console.log(error)
       })
       setStatus("ピクチャーがありません。")
-  }, [])
+  }, [page])
 
   return(
     <div>
@@ -90,6 +91,9 @@ export default function Picture () {
                     {user.id &&
                       <CardActions disableSpacing>
                         <Favorite favorite={picture} url="pictures" />
+                        <IconButton>
+                          <AddIcon />
+                        </IconButton>
                       </CardActions>
                     }
                   </Card>

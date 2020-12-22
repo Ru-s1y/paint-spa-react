@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import { 
-  Button, 
   Grid, 
   Card, 
   CardContent,
   CardActions,
-  Typography,
-  IconButton
+  Typography
 } from '@material-ui/core'
 import cardStyles from '../design/cardStyles'
 
@@ -15,6 +13,7 @@ import { UserContext } from '../services/Menu'
 import Thumbnail from '../services/Thumbnail'
 // import FavoriteIcon from '@material-ui/icons/Favorite';
 import Favorite from '../services/Favorite'
+import AddAlbum from '../services/AddAlbum'
 
 export default function Album () {
   const classes = cardStyles()
@@ -39,14 +38,14 @@ export default function Album () {
         console.log(error)
       })
       setStatus("アルバムがありません。")
-  }, [])
+  }, [page])
 
   return(
     <div>
       <Grid style={{margin: "2rem"}}>
         <h2>Album</h2>
         {user.id &&
-          <Button variant="contained" color="primary">アルバム作成</Button>
+          <AddAlbum />
         }
       </Grid>
       {albums.length
