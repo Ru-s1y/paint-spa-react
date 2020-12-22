@@ -72,7 +72,7 @@ export default function Picture () {
                           }
                         </>
                       }
-                      title={picture.name}
+                      title={picture.username}
                       subheader={picture.created_at.substr(0,10)}
                     />
                     <CardMedia 
@@ -81,6 +81,9 @@ export default function Picture () {
                       title={picture.name}
                     />
                     <CardContent>
+                      <Typography gutterBottom variant="h5" component="h2">
+                        {picture.name}
+                      </Typography>
                       <Typography variant="body2" color="textSecondary" component="p">
                         {picture.description}
                       </Typography>
