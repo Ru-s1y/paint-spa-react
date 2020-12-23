@@ -13,6 +13,8 @@ import NavBar from '../components/Navbar'
 import axios from 'axios'
 import MyPage from '../components/MyPage'
 import FavoritePage from '../components/FavoritePage'
+import MyPictures from '../components/MyPictures'
+import MyAlbums from '../components/MyAlbums'
 // import Error from '../components/Error'
 
 export const UserContext = createContext()
@@ -28,7 +30,6 @@ export default function Menu () {
         { withCredentials: true }
         ).then(response => {
           setUser(response.data)
-          // console.log(response.data)
         }).catch(error => {
           console.log(error)
           setUser({})
@@ -48,30 +49,38 @@ export default function Menu () {
       <Router>
         <UserContext.Provider value={user}>
           <NavBar setUser={setUser} setExp={setExp} />
-          <Switch>
-            <Route path="/" exact>
-              <Home />
-            </Route>
-            <Route path="/album" exact>
-              <Album />
-            </Route>
-            <Route path="/picture" exact>
-              <Picture />
-            </Route>
-            <Route path="/paint" exact>
-              <Paint />
-            </Route>
-            {user.id &&
-              <>
-                <Route path="/mypage" exact>
-                  <MyPage />
-                </Route>
-                <Route path="/favorite" exact>
-                  <FavoritePage />
-                </Route>
-              </>
-            }
-          </Switch>
+          <div style={{marginTop: "10ch", marginBottom: "5ch"}}>
+            <Switch>
+              <Route path="/" exact>
+                <Home />
+              </Route>
+              <Route path="/album" exact>
+                <Album />
+              </Route>
+              <Route path="/picture" exact>
+                <Picture />
+              </Route>
+              <Route path="/paint" exact>
+                <Paint />
+              </Route>
+              {user.id &&
+                <>
+                  <Route path="/mypage" exact>
+                    <MyPage />
+                  </Route>
+                  <Route path="/favorite" exact>
+                    <FavoritePage />
+                  </Route>
+                  <Route path="/mypictures" exact>
+                    <MyPictures />
+                  </Route>
+                  <Route path="/myalbums" exact>
+                    <MyAlbums />
+                  </Route>
+                </>
+              }
+            </Switch>
+          </div>
         </UserContext.Provider>
       </Router>
     </div>

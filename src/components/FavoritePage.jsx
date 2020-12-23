@@ -24,9 +24,9 @@ export default function FavoritePage () {
 
   return (
     <div style={{margin: "2rem"}}>
-      <h2>Favorites</h2>
+      <h2>お気に入り一覧</h2>
       <div style={{margin: "1rem"}}>
-        <h3>Favorite Picture</h3>
+        <h3>お気に入りピクチャー</h3>
         {object.pictures.length
           ? <></>
           : <p>
@@ -39,7 +39,7 @@ export default function FavoritePage () {
         }
       </div>
       <div style={{margin: "1rem"}}>
-        <h3>Favorite Album</h3>
+        <h3>お気に入りアルバム</h3>
         {object.albums.length
           ? <></>
           : <p>

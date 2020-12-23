@@ -2,8 +2,7 @@ import axios from 'axios'
 import { types, useAlert } from 'react-alert'
 import { useHistory } from 'react-router-dom'
 import {
-  Button,
-  // IconButton
+  IconButton,
 } from '@material-ui/core'
 // import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
@@ -30,13 +29,13 @@ export default function Logout (props) {
 
   return (
     <div>
-      <Button
+      <IconButton
         style={{marginLeft: "auto"}} 
         color="inherit"
         onClick={(e) => clickLogout(e)}
       >
         <MeetingRoomIcon />
-      </Button>
+      </IconButton>
     </div>
   )
 }

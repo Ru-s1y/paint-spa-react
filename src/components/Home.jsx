@@ -1,41 +1,34 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
+import { Link } from 'react-router-dom'
+import { makeStyles } from '@material-ui/core/styles';
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+} from '@material-ui/core';
+
 import Thumbnail from '../services/Thumbnail';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
+    maxWidth: 300,
+    minWidth: 200,
+    margin: '1rem',
   },
-  details: {
-    display: 'flex',
-    flexDirection: 'column',
+  media: {
+    height: 250,
   },
-  content: {
-    flex: '1 0 auto',
-  },
-  cover: {
-    width: 151,
-  },
-  controls: {
-    display: 'flex',
-    alignItems: 'center',
-    paddingLeft: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-  },
-  playIcon: {
-    height: 38,
-    width: 38,
+  list: {
+    borderRight: 'solid 5px lightgray',
+    width: '20ch',
+    backgroundColor: "#EEEEEE",
   },
 }));
 
 export default function Home () {
   const classes = useStyles()
-  const theme = useTheme()
   const [object, setObject] = useState({
     pictures: {},
     albums: {}
@@ -54,59 +47,68 @@ export default function Home () {
   }, [])
 
   return(
-    <div style={{margin: "2rem"}}>
-      <h2>新着ピックアップ</h2>
-      <div>
-        {object.pictures.length
-          ? <>
-            {object.pictures.map((picture) => {
-              return (
-                <Card className={classes.root}>
-                  <CardMedia
-                    className={classes.cover}
-                    image={picture.image}
-                    title={picture.name}
-                  />
-                  <div className={classes.details}>
-                    <CardContent className={classes.content}>
-                      <Typography component="h5" variant="h5">
-                        {picture.name}
-                      </Typography>
-                      <Typography variant="subtitle1" color="textSecondary">
-                        {picture.description}
-                      </Typography>
-                    </CardContent>
-                  </div>
-                </Card>
-              )
-            })}
-          </>
-          : <></>
-        }
-      </div>
-      <div style={{width: "50ch"}}>
-        {object.albums.length
-          ? <>
-            {object.albums.map((album) => {
-              return (
-                <Card className={classes.root}>
-                  <Thumbnail album={album} />
-                  <div className={classes.details}>
-                    <CardContent className={classes.content}>
-                      <Typography component="h5" variant="h5">
-                        {album.name}
-                      </Typography>
-                      <Typography variant="subtitle1" color="textSecondary">
-                        {album.description}
-                      </Typography>
-                    </CardContent>
-                  </div>
-                </Card>
-              )
-            })}
-            </>
-          : <></>
-        }
+    <div>
+      <div style={{margin: "2rem"}}>
+        <h2>新着ピックアップ</h2>
+        <div>
+          <div style={{marginLeft: "2rem"}}>
+            <h3>ピクチャー</h3>
+            <Link to="/picture" style={{color: "royalblue"}}>もっとみる...</Link>
+            {object.pictures.length
+              ? <div style={{display: 'flex'}}>
+                {object.pictures.map((picture) => {
+                  return (
+                    <Card 
+                      className={classes.root}
+                    >
+                      <CardMedia
+                        className={classes.media}
+                        image={picture.image}
+                        title={picture.name}
+                      />
+                      <CardContent>
+                        <Typography component="h5" variant="h5">
+                          {picture.name}
+                        </Typography>
+                        <Typography variant="subtitle1" color="textSecondary">
+                          {picture.description}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  )
+                })}
+              </div>
+              : <></>
+            }
+          </div>
+          <div style={{height: "5ch"}}></div>
+          <div style={{marginLeft: "2rem"}}>
+            <h3>アルバム</h3>
+            <Link to="/picture" style={{color: 'royalblue'}}>もっとみる...</Link>
+            {object.albums.length
+              ? <div style={{display: 'flex'}}>
+                {object.albums.map((album) => {
+                  return (
+                    <Card className={classes.root}>
+                      <Thumbnail album={album} />
+                      <div className={classes.details}>
+                        <CardContent className={classes.content}>
+                          <Typography component="h5" variant="h5">
+                            {album.name}
+                          </Typography>
+                          <Typography variant="subtitle1" color="textSecondary">
+                            {album.description}
+                          </Typography>
+                        </CardContent>
+                      </div>
+                    </Card>
+                  )
+                })}
+                </div>
+              : <></>
+            }
+          </div>
+        </div>
       </div>
     </div>
   )

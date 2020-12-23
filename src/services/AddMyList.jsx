@@ -24,7 +24,7 @@ function getModalStyle() {
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'absolute',
-    width: 250,
+    width: 280,
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
@@ -65,21 +65,22 @@ export default function AddMyList (props) {
       <h3>アルバム追加</h3>
       <p>ピクチャー: {picture.name}</p>
       <AlbumList setAlbumId={setAlbumId} />
-      <Button
-        variant="contained"
-        color="primary"
-        style={{margin: "2rem 1rem 1rem 0"}}
-        onClick={albumAddPicture}
-      >
-        アルバム追加
-      </Button>
-      <Button 
-        variant="contained" 
-        style={{margin: "2rem 1rem 1rem 0"}}
-        onClick={() => setModal(false)}
-      >
-        閉じる
-      </Button>
+      <div style={{marginTop: "1rem", display: "flex"}}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={albumAddPicture}
+        >
+          アルバム追加
+        </Button>
+        <Button 
+          style={{marginLeft: "1rem"}}
+          variant="contained" 
+          onClick={() => setModal(false)}
+        >
+          閉じる
+        </Button>
+      </div>
     </div>
   )
 

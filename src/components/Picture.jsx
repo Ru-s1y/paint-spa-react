@@ -46,22 +46,20 @@ export default function Picture () {
   }, [currentPage])
 
   const changePage = (e, page) => {
-    // console.log(page)
     setCurrentPage(page)
   }
 
   return(
-    <div>
+    <div style={{marginBottom: "2rem"}}>
       <Grid style={{margin: "2rem"}}>
-        <h2>Picture</h2>
+        <h2>ピクチャー一覧</h2>
         <Button variant="contained" color="primary" onClick={() => history.push('/paint')}>ピクチャー作成</Button>
       </Grid>
       {pictures.length
-        ?
-          <Grid style={{display: "flex"}}>
+        ? <Grid style={{display: "flex", margin: "1rem"}}>
             {pictures.map((picture) => {
               return (
-                <Grid item key={picture.id} style={{margin: "2rem"}}>
+                <Grid item key={picture.id} style={{margin: "1rem"}}>
                   <Card className={classes.root}>
                     <CardHeader
                       avatar={
@@ -97,6 +95,7 @@ export default function Picture () {
         : <p style={{margin: "2rem"}}>{status}</p>
       }
       <Pagination 
+        style={{marginLeft: "2rem"}}
         count={totalPages} 
         showFirstButton shape="rounded" 
         onChange={changePage}
