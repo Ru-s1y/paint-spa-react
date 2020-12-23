@@ -63,6 +63,7 @@ export default function Login (props) {
         localStorage.setItem('exp', response.data.exp * 1000)
         clearValues()
         setModal(false)
+        alert.show(`ようこそ、${response.data.user.name}さん！`, { type: types.SUCCESS })
         console.log(response)
       }).catch(error => {
         console.log(error)
@@ -92,7 +93,7 @@ export default function Login (props) {
 
   const modalForm = (
     <div className={classes.paper} style={{width: '27ch'}}>
-      <form>
+      <form autoComplete="off">
         <h2>ログインフォーム</h2>
         <TextField 
           className={clsx(classes.margin, classes.textField)} 

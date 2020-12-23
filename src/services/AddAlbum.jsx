@@ -26,7 +26,7 @@ function getModalStyle() {
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'absolute',
-    width: 250,
+    width: '40ch',
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
@@ -70,16 +70,16 @@ export default function AddAlbum () {
   const modalForm = (
     <div style={modalStyle} className={classes.paper}>
       <FormGroup autoComplete="off" row>
-        <h2>アルバム作成</h2>
+        <h3>アルバム作成</h3>
         <div>
           <TextField 
-            label="Name" 
+            label="アルバムの名前" 
             variant="outlined"
             style={{marginBottom: "1em"}}
             onChange={e => setValues({name: e.target.value})} 
           />
           <TextField 
-            label="Description" 
+            label="アルバムの内容" 
             variant="outlined"
             multiline 
             rows={4} 
@@ -94,14 +94,22 @@ export default function AddAlbum () {
             公開設定はピクチャー登録後に変更できます。
           </Typography>
         </div>
-        <Button 
-          style={{marginBottom: "0.5em"}} 
-          variant="contained" 
-          color="primary"
-          onClick={submitAlbum}
-        >
-          アルバム作成
-        </Button>
+        <div style={{display: "flex"}}>
+          <Button
+            variant="contained" 
+            color="primary"
+            onClick={submitAlbum}
+          >
+            アルバム作成
+          </Button>
+          <Button 
+            variant="contained"
+            onClick={() => setModal(false)}
+            style={{marginLeft: "1rem"}}
+          >
+            閉じる
+          </Button>
+        </div>
       </FormGroup>
     </div>
   )
