@@ -22,7 +22,6 @@ import PictureForm from '../services/PictureForm'
 import AddAlbum from '../services/AddAlbum';
 import EditAlbum from '../services/EditAlbum';
 
-
 export default function MyPage () {
   const [object, setObject] = useState({
     pictures: {},
