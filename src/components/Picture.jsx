@@ -7,25 +7,25 @@ import {
   Card, 
   CardHeader, 
   CardMedia, 
-  IconButton, 
   CardActions,
   CardContent,
   Typography,
   Grid
 } from '@material-ui/core'
 import useStyles from '../design/useStyles'
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import AddIcon from '@material-ui/icons/Add';
 
 import { UserContext } from '../services/Menu'
 import Favorite from '../services/Favorite'
+import AddMyList from '../services/AddMyList'
 
 export default function Picture () {
   const [pictures, setPictures] = useState([])
-  const [page, setPage] = useState({
-    current: 1,
-    total: 1,
-  })
+  // const [page, setPage] = useState({
+  //   current: 1,
+  //   total: 1,
+  // })
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
   const history = useHistory()
   const classes = useStyles()
   const [status, setStatus] = useState("Loading...")
@@ -33,18 +33,16 @@ export default function Picture () {
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/pictures`,
-      { params: { page: page.current } }
+      { params: { page: currentPage } }
       ).then(response => {
         setPictures(response.data.pictures)
-        setPage({
-          current: response.data.meta.current_page,
-          total: response.data.meta.total_pages,
-        })
+        setCurrentPage(response.data.meta.current_page)
+        setTotalPages(response.data.meta.total_pages)
       }).catch(error => {
         console.log(error)
       })
       setStatus("ピクチャーがありません。")
-  }, [page])
+  }, [currentPage])
 
   return(
     <div>
@@ -63,17 +61,8 @@ export default function Picture () {
                       avatar={
                         <Avatar aria-label="picture" className={classes.avatar} />
                       }
-                      action={
-                        <>
-                          {user.id && 
-                            <IconButton aria-label="setting">
-                              <MoreVertIcon />
-                            </IconButton>
-                          }
-                        </>
-                      }
                       title={picture.username}
-                      subheader={picture.created_at.substr(0,10)}
+                      subheader={`作成日時: ${picture.created_at.substr(0,10)}`}
                     />
                     <CardMedia 
                       className={classes.media}
@@ -91,9 +80,7 @@ export default function Picture () {
                     {user.id &&
                       <CardActions disableSpacing>
                         <Favorite favorite={picture} url="pictures" />
-                        <IconButton>
-                          <AddIcon />
-                        </IconButton>
+                        <AddMyList picture={picture} />
                       </CardActions>
                     }
                   </Card>

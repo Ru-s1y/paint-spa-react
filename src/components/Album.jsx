@@ -3,9 +3,11 @@ import axios from 'axios'
 import { 
   Grid, 
   Card, 
+  CardHeader,
   CardContent,
   CardActions,
-  Typography
+  Typography,
+  Avatar
 } from '@material-ui/core'
 import cardStyles from '../design/cardStyles'
 
@@ -20,25 +22,25 @@ export default function Album () {
   const [albums, setAlbums] = useState([])
   const user = useContext(UserContext)
   const [status, setStatus] = useState("Loading...")
-  const [page, setPage] = useState({
-    current: 1,
-    total: 1,
-  })
+  // const [page, setPage] = useState({
+  //   current: 1,
+  //   total: 1,
+  // })
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/albums`, 
-      { params: { page: page.current } }
+      { params: { page: currentPage } }
       ).then(response => {
         setAlbums(response.data.albums)
-        setPage({
-          current: response.data.meta.current_page,
-          total: response.data.meta.total_pages
-        })
+        setCurrentPage(response.data.meta.current_page)
+        setTotalPages(response.data.meta.total_pages)
       }).catch(error => {
         console.log(error)
       })
       setStatus("アルバムがありません。")
-  }, [page])
+  }, [currentPage])
 
   return(
     <div>
@@ -53,6 +55,13 @@ export default function Album () {
             {albums.map((album) => {
               return (
                 <Card key={album.id} className={classes.root} style={{margin: "1rem"}}>
+                  <CardHeader
+                    avatar={
+                      <Avatar aria-label="album" className={classes.avatar} />
+                    }
+                    title={album.username}
+                    subheader={`作成日時: ${album.created_at.substr(0,10)}`}
+                  />
                   <Thumbnail album={album} />
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
