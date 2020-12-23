@@ -10,10 +10,9 @@ import {
   CardMedia,
   IconButton,
   Button
-} from '@material-ui/core'
+} from '@material-ui/core';
 import cardStyles from '../design/cardStyles'
 import Thumbnail from '../services/Thumbnail'
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import PanoramaIcon from '@material-ui/icons/Panorama';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -21,6 +20,7 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
 import PictureForm from '../services/PictureForm'
 import AddAlbum from '../services/AddAlbum';
+import EditAlbum from '../services/EditAlbum';
 
 export default function MyPage () {
   const [object, setObject] = useState({
@@ -66,9 +66,7 @@ export default function MyPage () {
                           <IconButton>
                             {album.publish ? <VisibilityIcon /> : <VisibilityOffIcon />}
                           </IconButton>
-                          <IconButton aria-label="setting">
-                            <MoreVertIcon />
-                          </IconButton>
+                          <EditAlbum album={album} />
                         </>
                       }
                       title={album.name}
