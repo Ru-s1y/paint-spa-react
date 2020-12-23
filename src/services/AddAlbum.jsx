@@ -73,13 +73,13 @@ export default function AddAlbum () {
         <h2>アルバム作成</h2>
         <div>
           <TextField 
-            label="Name" 
+            label="アルバムの名前" 
             variant="outlined"
             style={{marginBottom: "1em"}}
             onChange={e => setValues({name: e.target.value})} 
           />
           <TextField 
-            label="Description" 
+            label="アルバムの内容" 
             variant="outlined"
             multiline 
             rows={4} 
@@ -101,6 +101,13 @@ export default function AddAlbum () {
           onClick={submitAlbum}
         >
           アルバム作成
+        </Button>
+        <Button 
+          variant="contained" 
+          style={{marginBottom: "0.5em", marginLeft: "1rem"}} 
+          onClick={() => setModal(false)}
+        >
+          閉じる
         </Button>
       </FormGroup>
     </div>

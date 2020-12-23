@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react'
-import axios from 'axios'
+import React, { useState, useEffect, useContext } from 'react';
+import axios from 'axios';
 import { 
   Grid, 
   Card, 
@@ -8,24 +8,21 @@ import {
   CardActions,
   Typography,
   Avatar
-} from '@material-ui/core'
-import cardStyles from '../design/cardStyles'
+} from '@material-ui/core';
+import cardStyles from '../design/cardStyles';
+import { Pagination } from '@material-ui/lab';
 
-import { UserContext } from '../services/Menu'
-import Thumbnail from '../services/Thumbnail'
+import { UserContext } from '../services/Menu';
+import Thumbnail from '../services/Thumbnail';
 // import FavoriteIcon from '@material-ui/icons/Favorite';
-import Favorite from '../services/Favorite'
-import AddAlbum from '../services/AddAlbum'
+import Favorite from '../services/Favorite';
+import AddAlbum from '../services/AddAlbum';
 
 export default function Album () {
   const classes = cardStyles()
   const [albums, setAlbums] = useState([])
   const user = useContext(UserContext)
   const [status, setStatus] = useState("Loading...")
-  // const [page, setPage] = useState({
-  //   current: 1,
-  //   total: 1,
-  // })
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
 
@@ -41,6 +38,11 @@ export default function Album () {
       })
       setStatus("アルバムがありません。")
   }, [currentPage])
+
+  const changePage = (e, page) => {
+    // console.log(page)
+    setCurrentPage(page)
+  }
 
   return(
     <div>
@@ -84,6 +86,11 @@ export default function Album () {
           
         : <p style={{margin: "2rem"}}>{status}</p>
       }
+      <Pagination 
+        count={totalPages} 
+        showFirstButton shape="rounded" 
+        onChange={changePage}
+      />
     </div>
   )
 }

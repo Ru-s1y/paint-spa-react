@@ -10,9 +10,10 @@ import {
   CardActions,
   CardContent,
   Typography,
-  Grid
+  Grid,
 } from '@material-ui/core'
-import useStyles from '../design/useStyles'
+import useStyles from '../design/useStyles';
+import { Pagination } from '@material-ui/lab';
 
 import { UserContext } from '../services/Menu'
 import Favorite from '../services/Favorite'
@@ -43,6 +44,11 @@ export default function Picture () {
       })
       setStatus("ピクチャーがありません。")
   }, [currentPage])
+
+  const changePage = (e, page) => {
+    // console.log(page)
+    setCurrentPage(page)
+  }
 
   return(
     <div>
@@ -90,6 +96,11 @@ export default function Picture () {
           </Grid>
         : <p style={{margin: "2rem"}}>{status}</p>
       }
+      <Pagination 
+        count={totalPages} 
+        showFirstButton shape="rounded" 
+        onChange={changePage}
+      />
     </div>
   )
 }

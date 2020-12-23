@@ -55,13 +55,14 @@ export default function EditAlbum (props) {
 
   const editAlbum = (e) => {
     axios.patch(`${process.env.REACT_APP_SERVER_URL}/albums`,
-    { params: {
+    { album: {
         name: values.name,
         description: values.description,
         publish: values.publish,
     }},
     { withCredentials: true }
     ).then(response => {
+      props.setRender(true)
       alert.show(`「${album.name}」を編集しました。`, { type: types.SUCCESS })
     }).catch(error => {
       alert.show("アルバムの編集に失敗しました。", { type: types.ERROR })
@@ -115,14 +116,14 @@ export default function EditAlbum (props) {
         <div style={{marginBottom: "1rem"}}>
           <TextField 
             value={values.name}
-            label="Name" 
+            label="アルバムの名前" 
             variant="outlined"
             style={{marginBottom: "1em"}}
             onChange={handleValueChange('name')} 
           />
           <TextField 
             value={values.description}
-            label="Description" 
+            label="アルバムの内容" 
             variant="outlined"
             multiline 
             rows={4} 

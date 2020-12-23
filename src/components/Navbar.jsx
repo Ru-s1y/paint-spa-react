@@ -17,6 +17,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import PanoramaIcon from '@material-ui/icons/Panorama';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import BrushIcon from '@material-ui/icons/Brush';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 import Login from '../services/Login'
 import Registrations from '../services/Registrations'
@@ -90,10 +91,16 @@ const NavBar = (props) => {
           <Link to="/album">Album</Link>
         </ListItem>
         {user.id &&
-          <ListItem button onClick={e => clickLink(e, '/mypage')}>
-            <IconButton><AccountCircleIcon /></IconButton>
-            <Link to="/mypage">MyPage</Link>
-          </ListItem>
+          <>
+            <ListItem button onClick={e => clickLink(e, '/mypage')}>
+              <IconButton><AccountCircleIcon /></IconButton>
+              <Link to="/mypage">MyPage</Link>
+            </ListItem>
+            <ListItem button onClick={e => clickLink(e, '/favorite')}>
+              <IconButton><FavoriteIcon /></IconButton>
+              <Link to="/favorite">Favorite</Link>
+            </ListItem>
+          </>
         }
       </List>
     </div>

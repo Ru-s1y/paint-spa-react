@@ -53,11 +53,11 @@ export default function PictureForm (props) {
     description: picture.description,
     publish: true,
   })
-  const [albumId, setAlbumId] = useState([])
+  const [albumId, setAlbumId] = useState('')
 
   const submitPicture = e => {
     axios.patch(`${process.env.REACT_APP_SERVER_URL}/pictures`,
-      { params: {
+      { picture: {
           id: picture.id,
           name: values.name,
           description: values.description,
@@ -66,10 +66,10 @@ export default function PictureForm (props) {
       }},
       { withCredentials: true }
       ).then(response => {
-        clearValues()
         alert.show(`「${response.data}」を編集しました。`, { type: types.SUCCESS })
         handleClose()
         setOpen(false)
+        props.setRender(true)
       }).catch(error => {
         console.log(error)
       })
@@ -91,16 +91,6 @@ export default function PictureForm (props) {
     })
     e.preventDefault()
   }
-
-  // 入力値のクリア
-  const clearValues = () => {
-    setValues({
-      name: '',
-      description: '',
-      publish: true,
-    })
-  }
-
   // 入力した値をstateに反映
   const handleValueChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -130,14 +120,14 @@ export default function PictureForm (props) {
         <div style={{marginBottom: "1rem"}}>
           <TextField 
             value={values.name}
-            label="Name" 
+            label="ピクチャーの名前" 
             variant="outlined"
             style={{marginBottom: "1em"}}
             onChange={handleValueChange('name')} 
           />
           <TextField 
             value={values.description}
-            label="Description" 
+            label="ピクチャーの内容" 
             variant="outlined"
             multiline 
             rows={4} 

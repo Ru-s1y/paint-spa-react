@@ -288,7 +288,7 @@ export default function Paint () {
           />
           <FormControlLabel
             control={<Switch checked={publish} onChange={toggleChecked} color="primary" />}
-            label="公開"
+            label="公開設定"
             style={{margin: '1rem auto', color: "gray"}}
           />
         </div>

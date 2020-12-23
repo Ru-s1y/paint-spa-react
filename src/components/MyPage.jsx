@@ -10,16 +10,9 @@ import {
   CardMedia,
   IconButton,
   Button
-<<<<<<< HEAD
-} from '@material-ui/core'
-import cardStyles from '../design/cardStyles'
-import Thumbnail from '../services/Thumbnail'
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-=======
 } from '@material-ui/core';
 import cardStyles from '../design/cardStyles'
 import Thumbnail from '../services/Thumbnail'
->>>>>>> e5eb53a09862b50c01cbdca4e81846584d733491
 import PanoramaIcon from '@material-ui/icons/Panorama';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -27,10 +20,7 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
 import PictureForm from '../services/PictureForm'
 import AddAlbum from '../services/AddAlbum';
-<<<<<<< HEAD
-=======
 import EditAlbum from '../services/EditAlbum';
->>>>>>> e5eb53a09862b50c01cbdca4e81846584d733491
 
 export default function MyPage () {
   const [object, setObject] = useState({
@@ -39,6 +29,7 @@ export default function MyPage () {
   });
   const classes = cardStyles();
   const history = useHistory();
+  const [render, setRender] = useState(false)
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/mypages`,
@@ -48,10 +39,11 @@ export default function MyPage () {
           pictures: response.data.pictures,
           albums: response.data.albums
         })
+        setRender(false)
       }).catch(error => {
         console.log(error)
       })
-  }, [])
+  }, [render])
 
   return (
     <div style={{margin: "2rem"}}>
@@ -76,13 +68,7 @@ export default function MyPage () {
                           <IconButton>
                             {album.publish ? <VisibilityIcon /> : <VisibilityOffIcon />}
                           </IconButton>
-<<<<<<< HEAD
-                          <IconButton aria-label="setting">
-                            <MoreVertIcon />
-                          </IconButton>
-=======
-                          <EditAlbum album={album} />
->>>>>>> e5eb53a09862b50c01cbdca4e81846584d733491
+                          <EditAlbum album={album} setRender={setRender} />
                         </>
                       }
                       title={album.name}
@@ -121,7 +107,7 @@ export default function MyPage () {
                           <IconButton>
                             {picture.publish ? <VisibilityIcon /> : <VisibilityOffIcon />}
                           </IconButton>
-                          <PictureForm picture={picture} />
+                          <PictureForm picture={picture} setRender={setRender} />
                         </>
                       }
                       title={picture.album_name}

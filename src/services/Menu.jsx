@@ -12,6 +12,7 @@ import Paint from '../components/Paint'
 import NavBar from '../components/Navbar'
 import axios from 'axios'
 import MyPage from '../components/MyPage'
+import FavoritePage from '../components/FavoritePage'
 // import Error from '../components/Error'
 
 export const UserContext = createContext()
@@ -61,9 +62,14 @@ export default function Menu () {
               <Paint />
             </Route>
             {user.id &&
-              <Route path="/mypage" exact>
-                <MyPage />
-              </Route>
+              <>
+                <Route path="/mypage" exact>
+                  <MyPage />
+                </Route>
+                <Route path="/favorite" exact>
+                  <FavoritePage />
+                </Route>
+              </>
             }
           </Switch>
         </UserContext.Provider>
