@@ -56,7 +56,7 @@ export default function PictureForm (props) {
   const [albumId, setAlbumId] = useState([])
 
   const submitPicture = e => {
-    axios.post(`${process.env.REACT_APP_SERVER_URL}/pictures`,
+    axios.patch(`${process.env.REACT_APP_SERVER_URL}/pictures`,
       { params: {
           id: picture.id,
           name: values.name,
