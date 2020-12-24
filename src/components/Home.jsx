@@ -58,7 +58,8 @@ export default function Home () {
               ? <div style={{display: 'flex'}}>
                 {object.pictures.map((picture) => {
                   return (
-                    <Card 
+                    <Card
+                      key={picture.id}
                       className={classes.root}
                     >
                       <CardMedia
@@ -89,7 +90,10 @@ export default function Home () {
               ? <div style={{display: 'flex'}}>
                 {object.albums.map((album) => {
                   return (
-                    <Card className={classes.root}>
+                    <Card
+                      key={album.id}
+                      className={classes.root}
+                    >
                       <Thumbnail album={album} />
                       <div className={classes.details}>
                         <CardContent className={classes.content}>

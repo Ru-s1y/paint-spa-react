@@ -96,7 +96,6 @@ export default function EditAlbum (props) {
   // 公開設定のスイッチ
   const handleChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.checked })
-    console.log(event.target.checked)
   }
 
   // プルダウンメニューを開く

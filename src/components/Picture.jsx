@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react'
-import axios from 'axios'
-import { useHistory } from 'react-router-dom'
+import React, { useState, useEffect, useContext } from 'react';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 import { 
   Avatar, 
   Button, 
@@ -11,24 +11,20 @@ import {
   CardContent,
   Typography,
   Grid,
-} from '@material-ui/core'
-import useStyles from '../design/useStyles';
+} from '@material-ui/core';
+import cardStyles from '../design/cardStyles';
 import { Pagination } from '@material-ui/lab';
 
-import { UserContext } from '../services/Menu'
-import Favorite from '../services/Favorite'
-import AddMyList from '../services/AddMyList'
+import { UserContext } from '../services/Menu';
+import Favorite from '../services/Favorite';
+import AddMyList from '../services/AddMyList';
 
 export default function Picture () {
   const [pictures, setPictures] = useState([])
-  // const [page, setPage] = useState({
-  //   current: 1,
-  //   total: 1,
-  // })
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
   const history = useHistory()
-  const classes = useStyles()
+  const classes = cardStyles()
   const [status, setStatus] = useState("Loading...")
   const user = useContext(UserContext)
 

@@ -14,7 +14,6 @@ import { Pagination } from '@material-ui/lab';
 
 import { UserContext } from '../services/Menu';
 import Thumbnail from '../services/Thumbnail';
-// import FavoriteIcon from '@material-ui/icons/Favorite';
 import Favorite from '../services/Favorite';
 import AddAlbum from '../services/AddAlbum';
 

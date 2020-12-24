@@ -45,7 +45,7 @@ export default function MyPictures () {
     <div style={{margin: "2rem"}}>
       <h2>マイピクチャー</h2>
       {pictures.length
-        ? <div>
+        ? <div style={{display: "flex"}}>
             {pictures.map((picture) => {
               return (
                 <Card key={picture.id} className={classes.root} style={{margin: "1rem"}}>

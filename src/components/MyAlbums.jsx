@@ -45,7 +45,7 @@ export default function MyAlbums () {
     <div style={{margin: "2rem"}}>
       <h2>マイアルバム</h2>
       {albums.length
-        ? <div>
+        ? <div style={{display: "flex"}}>
             {albums.map((album) => {
               return (
                 <Card key={album.id} className={classes.root} style={{margin: "1rem"}}>

@@ -40,14 +40,17 @@
 .my-canvas {
   border: solid 1px lightgray;
   box-shadow: 0 0 5px gray;
-  margin-left: 1rem;
+  /* margin-left: 1rem; */
 }
 
-.canvas-container {
-  display: 'flex';
-  align-items: 'center';
-  justify-content: 'center';
-  text-align: center;
+.canvas-wrapper {
+  position: relative;
+}
+.canvas-wrapper canvas {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
 
 a {
