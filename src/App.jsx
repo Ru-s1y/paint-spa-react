@@ -6,6 +6,9 @@ import Menu from './services/Menu'
 const options = {
   timeout: 5000,
   position: positions.BOTTOM_CENTER,
+  containerStyle: {
+    zIndex: 9999
+  }
 }
 
 export default function App() {

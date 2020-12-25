@@ -6,6 +6,7 @@ import {
   Typography,
   CardHeader,
   IconButton,
+  Grid,
 } from '@material-ui/core';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
@@ -45,7 +46,7 @@ export default function MyAlbums () {
     <div style={{margin: "2rem"}}>
       <h2>マイアルバム</h2>
       {albums.length
-        ? <div style={{display: "flex"}}>
+        ? <Grid container style={{display: "flex"}}>
             {albums.map((album) => {
               return (
                 <Card key={album.id} className={classes.root} style={{margin: "1rem"}}>
@@ -78,7 +79,7 @@ export default function MyAlbums () {
                 </Card>
               )
             })}
-          </div>
+          </Grid>
         : <p></p>
       }
       <Pagination 

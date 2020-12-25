@@ -51,7 +51,7 @@ export default function Album () {
         }
       </Grid>
       {albums.length
-        ? <Grid style={{display: "flex", margin: "1rem"}}>
+        ? <Grid container style={{margin: "1rem"}}>
             {albums.map((album) => {
               return (
                 <Card key={album.id} className={classes.root} style={{margin: "1rem"}}>

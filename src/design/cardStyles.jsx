@@ -3,13 +3,15 @@ import { red } from '@material-ui/core/colors';
 
 const cardStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    maxWidth: 400,
+    minWidth: 280,
+    margin: "1rem"
   },
   media: {
-    height: 256,
-    width: 256,
-    // paddingTop: '100%', // 16:9
-    margin: '1rem',
+    height: 250,
+    // width: 256,
+    paddingTop: '100%', // 16:9
+    // margin: '1em',
   },
   expand: {
     transform: 'rotate(0deg)',

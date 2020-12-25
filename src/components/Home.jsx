@@ -1,34 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
-import { makeStyles } from '@material-ui/core/styles';
 import {
   Card,
   CardContent,
   CardMedia,
   Typography,
+  Grid,
 } from '@material-ui/core';
 
 import Thumbnail from '../services/Thumbnail';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    maxWidth: 300,
-    minWidth: 200,
-    margin: '1rem',
-  },
-  media: {
-    height: 250,
-  },
-  list: {
-    borderRight: 'solid 5px lightgray',
-    width: '20ch',
-    backgroundColor: "#EEEEEE",
-  },
-}));
+import cardStyles from '../design/cardStyles';
 
 export default function Home () {
-  const classes = useStyles()
+  const classes = cardStyles()
   const [object, setObject] = useState({
     pictures: {},
     albums: {}
@@ -55,7 +40,7 @@ export default function Home () {
             <h3>ピクチャー</h3>
             <Link to="/picture" style={{color: "royalblue"}}>もっとみる...</Link>
             {object.pictures.length
-              ? <div style={{display: 'flex'}}>
+              ? <Grid container>
                 {object.pictures.map((picture) => {
                   return (
                     <Card
@@ -78,7 +63,7 @@ export default function Home () {
                     </Card>
                   )
                 })}
-              </div>
+              </Grid>
               : <></>
             }
           </div>
@@ -87,7 +72,7 @@ export default function Home () {
             <h3>アルバム</h3>
             <Link to="/picture" style={{color: 'royalblue'}}>もっとみる...</Link>
             {object.albums.length
-              ? <div style={{display: 'flex'}}>
+              ? <Grid container>
                 {object.albums.map((album) => {
                   return (
                     <Card
@@ -108,7 +93,7 @@ export default function Home () {
                     </Card>
                   )
                 })}
-                </div>
+                </Grid>
               : <></>
             }
           </div>

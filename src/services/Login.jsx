@@ -92,7 +92,7 @@ export default function Login (props) {
   };
 
   const modalForm = (
-    <div className={classes.paper} style={{width: '27ch'}}>
+    <div className={classes.paper}>
       <form autoComplete="off">
         <h2>ログインフォーム</h2>
         <TextField 

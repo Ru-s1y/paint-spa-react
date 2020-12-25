@@ -136,7 +136,7 @@ const NavBar = (props) => {
             </>
           }
           <Typography variant="h6" className={classes.title} to="/">
-            Sketch
+            Pixel Post
           </Typography>
           <div style={{marginLeft: "auto", display: "flex"}}>
             {navbarStatus}

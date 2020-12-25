@@ -57,7 +57,7 @@ export default function MyPage () {
           </Button>
           <Link to="/mypictures" style={{color: 'royalblue', marginLeft: "1rem"}}>もっとみる</Link>
           {object.pictures.length &&
-            <Grid>
+            <Grid container>
               {object.pictures.map((picture) => {
                 return (
                   <Card key={picture.id} className={classes.root} style={{margin: "1rem"}}>
@@ -103,7 +103,7 @@ export default function MyPage () {
           <AddAlbum />
           <Link to="/myalbums" style={{color: 'royalblue', marginLeft: "1rem"}}>もっとみる</Link>
           {object.albums.length &&
-            <Grid>
+            <Grid container>
               {object.albums.map((album) => {
                 return(
                   <Card key={album.id} className={classes.root} style={{margin: "1rem"}}>

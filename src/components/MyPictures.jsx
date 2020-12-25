@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardMedia,
   IconButton,
+  Grid,
 } from '@material-ui/core';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
@@ -45,7 +46,7 @@ export default function MyPictures () {
     <div style={{margin: "2rem"}}>
       <h2>マイピクチャー</h2>
       {pictures.length
-        ? <div style={{display: "flex"}}>
+        ? <Grid container>
             {pictures.map((picture) => {
               return (
                 <Card key={picture.id} className={classes.root} style={{margin: "1rem"}}>
@@ -82,7 +83,7 @@ export default function MyPictures () {
                 </Card>
               )
             })}
-          </div>
+          </Grid>
         : <p></p>
       }
       <Pagination 

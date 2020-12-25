@@ -46,17 +46,16 @@ export default function Picture () {
   }
 
   return(
-    <div style={{marginBottom: "2rem"}}>
+    <div style={{marginBottom: "2rem", width: "100vw"}}>
       <Grid style={{margin: "2rem"}}>
         <h2>ピクチャー一覧</h2>
         <Button variant="contained" color="primary" onClick={() => history.push('/paint')}>ピクチャー作成</Button>
       </Grid>
       {pictures.length
-        ? <Grid style={{display: "flex", margin: "1rem"}}>
+        ? <Grid container style={{margin: "1rem"}}>
             {pictures.map((picture) => {
               return (
-                <Grid item key={picture.id} style={{margin: "1rem"}}>
-                  <Card className={classes.root}>
+                  <Card className={classes.root} key={picture.id} style={{margin: "1rem"}}>
                     <CardHeader
                       avatar={
                         <Avatar aria-label="picture" className={classes.avatar} />
@@ -84,7 +83,6 @@ export default function Picture () {
                       </CardActions>
                     }
                   </Card>
-                </Grid>
               )
             })}
           </Grid>

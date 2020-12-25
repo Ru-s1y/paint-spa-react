@@ -15,7 +15,7 @@ import MyPage from '../components/MyPage'
 import FavoritePage from '../components/FavoritePage'
 import MyPictures from '../components/MyPictures'
 import MyAlbums from '../components/MyAlbums'
-// import Error from '../components/Error'
+import Error from '../components/Error'
 
 export const UserContext = createContext()
 
@@ -79,6 +79,7 @@ export default function Menu () {
                   </Route>
                 </>
               }
+              <Route component={Error} />
             </Switch>
           </div>
         </UserContext.Provider>

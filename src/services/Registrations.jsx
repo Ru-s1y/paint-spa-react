@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import axios from 'axios'
+import { useAlert, types } from 'react-alert'
 import {
   TextField,
   FormControl,
@@ -15,7 +16,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import clsx from 'clsx';
-import { useAlert, types } from 'react-alert'
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -51,6 +51,11 @@ export default function Registrations (props) {
   })
   const [open, setOpen] = useState(false)
   const classes = useStyles()
+  const errorRef = useRef(null)
+  const [errors, setErrors] = useState({
+    email: [],
+    password: [],
+  })
 
   const submitRegistration = e => {
     axios.post(`${process.env.REACT_APP_SERVER_URL}/auth/registrations`,
@@ -62,16 +67,32 @@ export default function Registrations (props) {
     }},
     { withCredentials: true }
     ).then(response => {
-      props.setUser(response.data.user)
-      localStorage.setItem('exp', response.data.exp * 1000)
-      clearValues()
-      setOpen(false)
-      console.log(response)
+      if (!response.data.message) {
+        errorRef.current = null
+        props.setUser(response.data.user)
+        localStorage.setItem('exp', response.data.exp * 1000)
+        clearValues()
+        setOpen(false)
+        alert.show(`ようこそ、${response.data.user.name}さん！`, { type: types.SUCCESS })
+      } else {
+        setErrors({
+          email: response.data.message.email,
+          password: response.data.message.password,
+        })
+        showAlert(response.data.message.email[0])
+        showAlert(response.data.message.password[0])
+        showErrors()
+      }
     }).catch(error => {
-      console.log(error)
-      alert.show('登録に失敗しました', { type: types.ERROR })
+      console.log(error.message)
+      alert.show('登録に失敗しました。', { type: types.ERROR })
     })
     e.preventDefault()
+  }
+
+  const showErrors = () => {
+    showAlert(errors.email[0])
+    showAlert(errors.password[0])
   }
 
   const clearValues = () => {
@@ -96,8 +117,31 @@ export default function Registrations (props) {
     event.preventDefault();
   };
 
+  const validationFrom = (e) => {
+    if (values.email === "") {
+      return showAlert("メールアドレスを入力して下さい。")
+    }
+    if (values.password === "") {
+      return showAlert("パスワードを入力して下さい。(8文字以上)")
+    }
+    if (values.password.length < 8) {
+      return showAlert("パスワードは8文字以上です。")
+    }
+    if (values.password_confirmation === "") {
+      return showAlert("確認用パスワードを入力して下さい。(8文字以上)")
+    }
+    if (values.password !== values.password_confirmation) {
+      return showAlert("パスワードと確認用パスワードが一致しません。")
+    }
+    submitRegistration(e)
+  }
+
+  const showAlert = (message) => {
+    alert.show(`${message}`, { type: types.ERROR })
+  }
+
   const modalForm = (
-    <div className={classes.paper} style={{width: '27ch'}}>
+    <div className={classes.paper}>
       <h2>新規登録フォーム</h2>
       <form>
         <TextField
@@ -135,7 +179,7 @@ export default function Registrations (props) {
         </FormControl>
         <FormControl className={clsx(classes.margin, classes.textField)}>
           <InputLabel htmlFor="standard-adornment-password">
-            Password Confirmation
+            Password(確認用)
           </InputLabel>
           <Input
             id="standard-adornment-password"
@@ -156,12 +200,13 @@ export default function Registrations (props) {
           />
         </FormControl>
       </form>
+      <p>{errorRef.current}</p>
       <div style={{textAlign: "center"}}>
         <Button 
           style={{marginTop: "1em"}} 
           variant="contained" 
           color="primary"
-          onClick={(e) => submitRegistration(e)}
+          onClick={validationFrom}
         >新規登録</Button>
       </div>
     </div>
