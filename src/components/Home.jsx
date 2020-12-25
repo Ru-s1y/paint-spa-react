@@ -14,18 +14,14 @@ import cardStyles from '../design/cardStyles';
 
 export default function Home () {
   const classes = cardStyles()
-  const [object, setObject] = useState({
-    pictures: {},
-    albums: {}
-  })
+  const [pictures, setPictures] = useState({})
+  const [albums, setAlbums] = useState({})
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/homes`
       ).then(response => {
-        setObject({
-          pictures: response.data.pictures,
-          albums: response.data.albums
-        })
+        setPictures(response.data.pictures)
+        setAlbums(response.data.albums)
       }).catch(error => {
         console.log(error)
       })
@@ -39,9 +35,9 @@ export default function Home () {
           <div style={{marginLeft: "2rem"}}>
             <h3>ピクチャー</h3>
             <Link to="/picture" style={{color: "royalblue"}}>もっとみる...</Link>
-            {object.pictures
+            {pictures.length
               ? <Grid container>
-                {object.pictures.map((picture) => {
+                {pictures.map((picture) => {
                   return (
                     <Card
                       key={picture.id}
@@ -64,16 +60,16 @@ export default function Home () {
                   )
                 })}
               </Grid>
-              : <></>
+              : <p>Loading...</p>
             }
           </div>
           <div style={{height: "5ch"}}></div>
           <div style={{marginLeft: "2rem"}}>
             <h3>アルバム</h3>
             <Link to="/picture" style={{color: 'royalblue'}}>もっとみる...</Link>
-            {object.albums
+            {albums.length
               ? <Grid container>
-                {object.albums.map((album) => {
+                {albums.map((album) => {
                   return (
                     <Card
                       key={album.id}
@@ -94,7 +90,7 @@ export default function Home () {
                   )
                 })}
                 </Grid>
-              : <></>
+              : <p>Loading...</p>
             }
           </div>
         </div>
