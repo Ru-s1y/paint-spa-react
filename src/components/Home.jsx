@@ -39,7 +39,7 @@ export default function Home () {
           <div style={{marginLeft: "2rem"}}>
             <h3>ピクチャー</h3>
             <Link to="/picture" style={{color: "royalblue"}}>もっとみる...</Link>
-            {object.pictures.length
+            {object.pictures
               ? <Grid container>
                 {object.pictures.map((picture) => {
                   return (
@@ -71,7 +71,7 @@ export default function Home () {
           <div style={{marginLeft: "2rem"}}>
             <h3>アルバム</h3>
             <Link to="/picture" style={{color: 'royalblue'}}>もっとみる...</Link>
-            {object.albums.length
+            {object.albums
               ? <Grid container>
                 {object.albums.map((album) => {
                   return (
