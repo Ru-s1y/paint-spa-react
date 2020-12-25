@@ -79,6 +79,10 @@ const NavBar = (props) => {
           <IconButton><HomeIcon /></IconButton>
           <Link to="/">Home</Link>
         </ListItem >
+        <ListItem button onClick={e => clickLink(e, '/paint')}>
+          <IconButton><BrushIcon /></IconButton>
+          <Link to="/paint">Paint</Link>
+        </ListItem>
         <ListItem button onClick={e => clickLink(e, '/picture')}>
           <IconButton><PanoramaIcon /></IconButton>
           <Link to="/picture">Picture</Link>
@@ -86,10 +90,6 @@ const NavBar = (props) => {
         <ListItem button onClick={e => clickLink(e, '/album')}>
           <IconButton><MenuBookIcon /></IconButton>
           <Link to="/album">Album</Link>
-        </ListItem>
-        <ListItem button onClick={e => clickLink(e, '/paint')}>
-          <IconButton><BrushIcon /></IconButton>
-          <Link to="/paint">Paint</Link>
         </ListItem>
         {user.id &&
           <>
