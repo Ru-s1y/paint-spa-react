@@ -41,6 +41,22 @@ export default function AddPaint (props) {
     e.preventDefault()
   }
 
+  // バリデーション
+  const validateForm = (e) => {
+    if (values.name === '') {
+      return showErrorAlert("名前を入力して下さい。")
+    }
+    if (!dataURL) {
+      return showErrorAlert("イメージがありません。")
+    }
+    submitForm(e)
+  }
+
+  const showErrorAlert = (message) => {
+    alert.show(`message`, { type: types.ERROR })
+  }
+
+  // drawerを閉じる
   const closeDrawer = () => {
     props.setFOpen(false)
   }
@@ -57,7 +73,7 @@ export default function AddPaint (props) {
   // 公開設定toggle
   const toggleChecked = (e, newValue) => {
     setPublish(newValue)
-    console.log(newValue)
+    // console.log(newValue)
   }
 
   // stateの変更
@@ -98,7 +114,7 @@ export default function AddPaint (props) {
           variant="contained" 
           color="primary" 
           style={{marginTop: '1em'}}
-          onClick={submitForm}
+          onClick={validateForm}
         >保存
         </Button>
       </form>

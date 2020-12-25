@@ -37,7 +37,7 @@ export default function Menu () {
       } else {
         setExp('')
         localStorage.removeItem('exp')
-        console.log('ログインしてください。')
+        // console.log('ログインしてください。')
       }
     } else {
       console.log('expがない')

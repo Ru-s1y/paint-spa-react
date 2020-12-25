@@ -112,6 +112,17 @@ export default function PictureForm (props) {
     setAnchorEl(null)
   }
 
+  const validateForm = (e) => {
+    if (values.name === '') {
+      return showErrorAlert("名前を入力して下さい。")
+    }
+    submitPicture(e)
+  }
+  
+  const showErrorAlert = (message) => {
+    alert.show(`${message}`, { type: types.ERROR })
+  }
+
   // 編集モーダル
   const modalForm = (
     <div style={modalStyle} className={classes.paper}>
@@ -151,7 +162,7 @@ export default function PictureForm (props) {
           style={{marginBottom: "0.5em"}} 
           variant="contained" 
           color="primary"
-          onClick={submitPicture}
+          onClick={validateForm}
         >
           更新
         </Button>
