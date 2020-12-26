@@ -40,36 +40,77 @@ export default function AddMyList (props) {
   const modalStyle = getModalStyle()
   const alert = useAlert()
 
-  const albumAddPicture = (event) => {
-    axios.patch(`${process.env.REACT_APP_SERVER_URL}/albums`,
-    { params: {
-        id: picture.id,
+  const [select, setSelect] = useState({})
+
+  const albumAddPicture = (e) => {
+    axios.post(`${process.env.REACT_APP_SERVER_URL}/mypages/register_album`,
+    { mylist: {
+        picture_id: picture.id,
         album_id: albumId
     }},
     { withCredentials: true }
     ).then(response => {
-      alert.show(
-        `「${picture.name}」を「${response.data.name}」を追加しました。`,
-        { type: types.SUCCESS }
-      )
+      const message = response.data.message
+      if (message === "success") {
+        alert.show(
+          `「${picture.name}」をアルバム「${select.name}」に追加しました。`,
+          { type: types.SUCCESS }
+        )
+      } else {
+        showErrorAlert("アルバム追加に失敗しました。")
+      }
       setModal(false)
     }).catch(error => {
       console.log(error)
-      alert.show("アルバム追加に失敗しました。", { type: types.ERROR })
+      showErrorAlert("アルバム追加に失敗しました。")
     })
-    event.preventDefault()
+    e.preventDefault()
+  }
+
+  const pictureRemoveAlbum = (e) => {
+    axios.delete(`${process.env.REACT_APP_SERVER_URL}/mypages/destroy_album`,
+    {
+      params: { picture_id: picture.id, album_id: albumId },
+      withCredentials: true
+    }).then(response => {
+      const message = response.data.message
+      if (message === "success") { 
+        showSuccessAlert("アルバムから削除しました。")
+      } else {
+        showErrorAlert("アルバム登録解除に失敗しました。")
+      }
+    }).catch(error => {
+      console.log(error)
+      showErrorAlert("アルバム登録解除に失敗しました。")
+    })
+    e.preventDefault()
+  }
+
+  const validateParams = (e) => {
+    if (albumId === '') {
+      return pictureRemoveAlbum(e)
+    }
+    return albumAddPicture(e)
+  }
+
+  const showSuccessAlert = (msg) => {
+    return alert.show(`${msg}`, { type: types.SUCCESS })
+  }
+
+  const showErrorAlert = (msg) => {
+    return alert.show(`${msg}`, { type: types.ERROR })
   }
 
   const modalForm = (
     <div style={modalStyle} className={classes.paper}>
       <h3>アルバム追加</h3>
       <p>ピクチャー: {picture.name}</p>
-      <AlbumList setAlbumId={setAlbumId} />
+      <AlbumList setAlbumId={setAlbumId} setSelect={setSelect} />
       <div style={{marginTop: "1rem", display: "flex"}}>
         <Button
           variant="contained"
           color="primary"
-          onClick={albumAddPicture}
+          onClick={validateParams}
         >
           アルバム追加
         </Button>

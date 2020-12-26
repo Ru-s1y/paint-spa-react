@@ -24,10 +24,8 @@ import AddAlbum from '../services/AddAlbum';
 import EditAlbum from '../services/EditAlbum';
 
 export default function MyPage () {
-  const [object, setObject] = useState({
-    pictures: {},
-    albums: {}
-  });
+  const [pictures, setPictures] = useState({})
+  const [albums, setAlbums] = useState({})
   const classes = cardStyles();
   const history = useHistory();
   const [render, setRender] = useState(false)
@@ -36,10 +34,8 @@ export default function MyPage () {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/mypages`,
       { withCredentials: true }
       ).then(response => {
-        setObject({
-          pictures: response.data.pictures,
-          albums: response.data.albums
-        })
+        setPictures(response.data.pictures)
+        setAlbums(response.data.albums)
         setRender(false)
       }).catch(error => {
         console.log(error)
@@ -56,9 +52,9 @@ export default function MyPage () {
             ピクチャー作成
           </Button>
           <Link to="/mypictures" style={{color: 'royalblue', marginLeft: "1rem"}}>もっとみる</Link>
-          {object.pictures.length &&
+          {pictures.length &&
             <Grid container>
-              {object.pictures.map((picture) => {
+              {pictures.map((picture) => {
                 return (
                   <Card key={picture.id} className={classes.root} style={{margin: "1rem"}}>
                     <CardHeader
@@ -102,9 +98,9 @@ export default function MyPage () {
           <h3>マイアルバム</h3>
           <AddAlbum />
           <Link to="/myalbums" style={{color: 'royalblue', marginLeft: "1rem"}}>もっとみる</Link>
-          {object.albums.length &&
+          {albums.length &&
             <Grid container>
-              {object.albums.map((album) => {
+              {albums.map((album) => {
                 return(
                   <Card key={album.id} className={classes.root} style={{margin: "1rem"}}>
                     <CardHeader

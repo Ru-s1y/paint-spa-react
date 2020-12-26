@@ -81,6 +81,7 @@ export default function EditAlbum (props) {
       alert.show(`「${album.name}」を削除しました。`, { type: types.SUCCESS })
       setOpenD(false)
       handleClose()
+      props.setRender(true)
     }).catch(error => {
       console.log(error)
       alert.show(`「${album.name}」の削除に失敗しました。`, { type: types.ERROR })

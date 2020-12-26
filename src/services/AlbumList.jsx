@@ -28,7 +28,8 @@ export default function AlbumList (props) {
   const handleChange = (event) => {
     setCurrency(event.target.value)
     props.setAlbumId(event.target.value)
-    // console.log("アルバルセット", event.target.value)
+    props.setSelect(albums[event.target.value])
+    console.log("アルバルセット", albums[event.target.value])
   }
 
   return (
@@ -45,7 +46,6 @@ export default function AlbumList (props) {
           )
         })}
       </Select>
-      {/* <FormHelperText>アルバムを選択して下さい。</FormHelperText> */}
     </FormControl>
   )
 }

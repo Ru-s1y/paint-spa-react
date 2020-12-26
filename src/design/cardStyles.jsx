@@ -9,9 +9,8 @@ const cardStyles = makeStyles((theme) => ({
   },
   media: {
     height: 250,
-    // width: 256,
-    paddingTop: '100%', // 16:9
-    // margin: '1em',
+    width: 250,
+    margin: 'auto',
   },
   expand: {
     transform: 'rotate(0deg)',
