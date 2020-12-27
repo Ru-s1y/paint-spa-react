@@ -6,10 +6,12 @@ import {
   List,
   ListItem,
   ListItemText,
+  ListItemIcon,
   Drawer,
   Toolbar,
   CssBaseline,
 } from '@material-ui/core';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import EditAlbum from '../services/EditAlbum';
 import ViewAlbum from '../components/ViewAlbum';
@@ -81,10 +83,15 @@ export default function MyAlbums () {
                 {albums.map((album) => {
                   return (
                     <div key={album.id} style={{display: "flex"}}>
-                      <ListItem button onClick={e => selectAlbum(e, album)}>
-                        <ListItemText primary={album.name} />
-                      </ListItem>
-                      <EditAlbum album={album} setRender={setRender} />
+                      <div onClick={e => selectAlbum(e, album)}>
+                        <ListItem button>
+                          <ListItemIcon><ArrowBackIcon /></ListItemIcon>
+                          <ListItemText primary={album.name} />
+                        </ListItem>
+                      </div>
+                      <div style={{marginLeft: "auto"}}>
+                        <EditAlbum album={album} setRender={setRender} />
+                      </div>
                     </div>
                   )
                 })}</>
@@ -96,7 +103,7 @@ export default function MyAlbums () {
       <div style={{margin: "2rem"}}>
         {select === ''
           ? <p>アルバムを選択して下さい。</p>
-          :  <ViewAlbum album={select} />
+          :  <ViewAlbum album={select} setRender={setRender} />
         }
       </div>
     </div>

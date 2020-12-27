@@ -27,6 +27,7 @@ export default function Picture () {
   const classes = cardStyles()
   const [status, setStatus] = useState("Loading...")
   const user = useContext(UserContext)
+  const [render, setRender] = useState(false)
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/pictures`,
@@ -39,7 +40,7 @@ export default function Picture () {
         console.log(error)
       })
       setStatus("ピクチャーがありません。")
-  }, [currentPage])
+  }, [currentPage, render])
 
   const changePage = (e, page) => {
     setCurrentPage(page)
@@ -79,7 +80,7 @@ export default function Picture () {
                     {user.id &&
                       <CardActions disableSpacing>
                         <Favorite favorite={picture} url="pictures" />
-                        <AddMyList picture={picture} />
+                        <AddMyList picture={picture} setRender={setRender} />
                       </CardActions>
                     }
                   </Card>

@@ -73,7 +73,7 @@ export default function EditAlbum (props) {
 
   // 
   const deleteAlbum = (e) => {
-    axios.delete(`${process.env.REACT_APP_SERVER_URL}/album`,
+    axios.delete(`${process.env.REACT_APP_SERVER_URL}/albums`,
     {
       params: { id: album.id },
       withCredentials: true

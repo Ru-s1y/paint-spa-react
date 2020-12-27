@@ -96,7 +96,7 @@ export default function MyPage () {
         <div style={{height: "5ch"}}></div>
         <Grid style={{margin: "1rem"}}>
           <h3>マイアルバム</h3>
-          <AddAlbum />
+          <AddAlbum setRender={setRender} />
           <Link to="/myalbums" style={{color: 'royalblue', marginLeft: "1rem"}}>もっとみる</Link>
           {albums.length &&
             <Grid container>

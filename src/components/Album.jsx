@@ -24,6 +24,7 @@ export default function Album () {
   const [status, setStatus] = useState("Loading...")
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
+  const [render, setRender] = useState(false)
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/albums`, 
@@ -32,11 +33,12 @@ export default function Album () {
         setAlbums(response.data.albums)
         setCurrentPage(response.data.meta.current_page)
         setTotalPages(response.data.meta.total_pages)
+        setRender(false)
       }).catch(error => {
         console.log(error)
       })
       setStatus("アルバムがありません。")
-  }, [currentPage])
+  }, [currentPage, render])
 
   const changePage = (e, page) => {
     setCurrentPage(page)
@@ -47,7 +49,7 @@ export default function Album () {
       <Grid style={{margin: "2rem"}}>
         <h2>アルバム一覧</h2>
         {user.id &&
-          <AddAlbum />
+          <AddAlbum setRender={setRender} />
         }
       </Grid>
       {albums.length

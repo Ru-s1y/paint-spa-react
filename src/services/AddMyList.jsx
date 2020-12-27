@@ -40,7 +40,7 @@ export default function AddMyList (props) {
   const modalStyle = getModalStyle()
   const alert = useAlert()
 
-  const [select, setSelect] = useState({})
+  // const [select, setSelect] = useState({})
 
   const albumAddPicture = (e) => {
     axios.post(`${process.env.REACT_APP_SERVER_URL}/mypages/register_album`,
@@ -50,10 +50,10 @@ export default function AddMyList (props) {
     }},
     { withCredentials: true }
     ).then(response => {
-      const message = response.data.message
-      if (message === "success") {
+      console.log(response.data.message)
+      if (response.data.message === "success") {
         alert.show(
-          `「${picture.name}」をアルバム「${select.name}」に追加しました。`,
+          `「${picture.name}」をアルバム「${response.data.album_name}」に追加しました。`,
           { type: types.SUCCESS }
         )
       } else {
@@ -76,6 +76,7 @@ export default function AddMyList (props) {
       const message = response.data.message
       if (message === "success") { 
         showSuccessAlert("アルバムから削除しました。")
+        props.setRender(false)
       } else {
         showErrorAlert("アルバム登録解除に失敗しました。")
       }
@@ -105,7 +106,7 @@ export default function AddMyList (props) {
     <div style={modalStyle} className={classes.paper}>
       <h3>アルバム追加</h3>
       <p>ピクチャー: {picture.name}</p>
-      <AlbumList setAlbumId={setAlbumId} setSelect={setSelect} />
+      <AlbumList setAlbumId={setAlbumId} />
       <div style={{marginTop: "1rem", display: "flex"}}>
         <Button
           variant="contained"

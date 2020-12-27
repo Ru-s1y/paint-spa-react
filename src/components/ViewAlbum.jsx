@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 import {
   Card,
   CardMedia,
@@ -52,36 +53,45 @@ export default function ViewAlbum (props) {
 
   return (
     <div>
-      <h2>{album.name}</h2>
-      {pictures.length
-        ? <Grid container style={{width: containerWidth}}>
-            {pictures.map((picture) => {
-              return (
-                <Card key={picture.id} className={classes.root}>
-                  <CardMedia
-                    className={classes.media}
-                    image={picture.image}
-                    title={picture.name}
-                  />
-                  <div className={customClass.details}>
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        {picture.name}
-                      </Typography>
-                      <Typography variant="body2" color="textSecondary" component="p">
-                        {picture.description}
-                      </Typography>
-                    </CardContent>
-                    <CardActions disableSpacing>
-                      <RemoveMylist album={album} picture={picture} setRender={setRender} />
-                    </CardActions>
-                  </div>
-                </Card>
-              )
-            })}
-          </Grid>
+      {album.id
+        ? <div>
+          <h2>{album.name}</h2>
+          {pictures.length
+            ? <Grid container style={{width: containerWidth}}>
+                {pictures.map((picture) => {
+                  return (
+                    <Card key={picture.id} className={classes.root}>
+                      <CardMedia
+                        className={classes.media}
+                        image={picture.image}
+                        title={picture.name}
+                      />
+                      <div className={customClass.details}>
+                        <CardContent>
+                          <Typography gutterBottom variant="h5" component="h2">
+                            {picture.name}
+                          </Typography>
+                          <Typography variant="body2" color="textSecondary" component="p">
+                            {picture.description}
+                          </Typography>
+                        </CardContent>
+                        <CardActions disableSpacing>
+                          <RemoveMylist album={album} picture={picture} setRender={setRender} />
+                        </CardActions>
+                      </div>
+                    </Card>
+                  )
+                })}
+              </Grid>
+            : <>
+                <p>ピクチャーがありません。</p>
+                <Link to="/picture" style={{color: "royalblue"}}>ピクチャー</Link>
+                <span>を探して登録しましょう。</span>
+              </>
+          }
+      </div>
         : <>
-            <p>アルバムがありません。</p>
+            <p>アルバムを選択して下さい。</p>
             <AddAlbum setRender={setRender} />
           </>
       }
