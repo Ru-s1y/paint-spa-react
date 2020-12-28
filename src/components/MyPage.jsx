@@ -10,7 +10,8 @@ import {
   CardHeader,
   CardMedia,
   IconButton,
-  Button
+  Button,
+  CardActions
 } from '@material-ui/core';
 import cardStyles from '../design/cardStyles';
 import Thumbnail from '../services/Thumbnail';
@@ -22,6 +23,7 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import PictureForm from '../services/PictureForm';
 import AddAlbum from '../services/AddAlbum';
 import EditAlbum from '../services/EditAlbum';
+import ViewPicture from './ViewPicture';
 
 export default function MyPage () {
   const [pictures, setPictures] = useState({})
@@ -87,6 +89,9 @@ export default function MyPage () {
                         {picture.description}
                       </Typography>
                     </CardContent>
+                    <CardActions>
+                      <ViewPicture picture={picture} />
+                    </CardActions>
                   </Card>
                 )
               })}

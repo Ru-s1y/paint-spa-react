@@ -14,7 +14,7 @@ import {
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import EditAlbum from '../services/EditAlbum';
-import ViewAlbum from '../components/ViewAlbum';
+import ViewMyAlbum from '../components/ViewMyAlbum';
 
 const drawerWidth = 240
 
@@ -103,7 +103,7 @@ export default function MyAlbums () {
       <div style={{margin: "2rem"}}>
         {select === ''
           ? <p>アルバムを選択して下さい。</p>
-          :  <ViewAlbum album={select} setRender={setRender} />
+          :  <ViewMyAlbum album={select} setRender={setRender} />
         }
       </div>
     </div>

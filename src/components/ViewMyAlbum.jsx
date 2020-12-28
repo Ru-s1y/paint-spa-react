@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-export default function ViewAlbum (props) {
+export default function ViewMyAlbum (props) {
   const classes = cardStyles()
   const customClass = useStyles()
   const album = props.album

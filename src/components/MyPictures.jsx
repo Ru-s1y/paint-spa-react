@@ -8,6 +8,7 @@ import {
   CardMedia,
   IconButton,
   Grid,
+  CardActions,
 } from '@material-ui/core';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
@@ -15,6 +16,7 @@ import cardStyles from '../design/cardStyles';
 import PictureForm from '../services/PictureForm';
 import PanoramaIcon from '@material-ui/icons/Panorama';
 import { Pagination } from '@material-ui/lab';
+import ViewPicture from './ViewPicture';
 
 export default function MyPictures () {
   const classes = cardStyles()
@@ -80,6 +82,9 @@ export default function MyPictures () {
                       {picture.description}
                     </Typography>
                   </CardContent>
+                  <CardActions>
+                    <ViewPicture picture={picture} />
+                  </CardActions>
                 </Card>
               )
             })}

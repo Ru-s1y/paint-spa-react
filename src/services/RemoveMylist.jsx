@@ -43,7 +43,7 @@ export default function RemoveMylist (props) {
   // 表示部分
   return (
     <div>
-      <IconButton button onClick={pictureRemoveAlbum}>
+      <IconButton onClick={pictureRemoveAlbum}>
         <DeleteIcon />
       </IconButton>
     </div>
