@@ -17,6 +17,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AlbumList from '../services/AlbumList'
+// import AddTags from './AddTags';
 
 function getModalStyle() {
   const top = 50;
@@ -62,7 +63,7 @@ export default function PictureForm (props) {
           name: values.name,
           description: values.description,
           publish: values.publish,
-          album_id: albumId
+          album_id: albumId,
       }},
       { withCredentials: true }
       ).then(response => {
@@ -121,6 +122,16 @@ export default function PictureForm (props) {
   
   const showErrorAlert = (message) => {
     alert.show(`${message}`, { type: types.ERROR })
+  }
+
+  const openEditModal = () => {
+    setAnchorEl(null)
+    setOpen(true)
+  }
+
+  const openDeleteModal = () => {
+    setAnchorEl(null)
+    setOpenD(true)
   }
 
   // 編集モーダル
@@ -201,7 +212,7 @@ export default function PictureForm (props) {
 
   return (
     <>
-      <IconButton aria-label="setting" onClick={handleClick}>
+      <IconButton aria-label="setting" style={{color: "lightgray"}} onClick={handleClick}>
         <MoreVertIcon />
       </IconButton>
 
@@ -211,11 +222,11 @@ export default function PictureForm (props) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={() => setOpen(true)}>
+        <MenuItem onClick={openEditModal}>
           <EditIcon style={{color: "gray"}} />
           編集
         </MenuItem>
-        <MenuItem onClick={() => setOpenD(true)}>
+        <MenuItem onClick={openDeleteModal}>
           <DeleteIcon style={{color: "gray"}} />
           削除
         </MenuItem>

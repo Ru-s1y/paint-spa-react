@@ -90,12 +90,12 @@ const NavBar = (props) => {
             <ListItemText primary="Picture" />
           </ListItem>
         </Link>
-        <Link to="/album">
+        {/* <Link to="/album">
           <ListItem button onClick={handleDrawerClose}>
             <ListItemIcon><MenuBookIcon /></ListItemIcon>
             <ListItemText primary="Album" />
           </ListItem>
-        </Link>
+        </Link> */}
         {user.id &&
           <>
             <Divider />

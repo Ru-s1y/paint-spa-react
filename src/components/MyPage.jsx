@@ -8,27 +8,27 @@ import {
   CardContent,
   Typography,
   CardHeader,
-  CardMedia,
   IconButton,
   Button,
-  CardActions
+  GridList,
+  GridListTile,
+  GridListTileBar,
 } from '@material-ui/core';
 import cardStyles from '../design/cardStyles';
 import Thumbnail from '../services/Thumbnail';
-import PanoramaIcon from '@material-ui/icons/Panorama';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-
-import PictureForm from '../services/PictureForm';
 import AddAlbum from '../services/AddAlbum';
 import EditAlbum from '../services/EditAlbum';
 import ViewPicture from './ViewPicture';
+import gridStyles from '../design/gridStyles';
 
 export default function MyPage () {
   const [pictures, setPictures] = useState({})
   const [albums, setAlbums] = useState({})
-  const classes = cardStyles();
+  const classes = gridStyles();
+  const styles = cardStyles()
   const history = useHistory();
   const [render, setRender] = useState(false)
 
@@ -54,49 +54,30 @@ export default function MyPage () {
             ピクチャー作成
           </Button>
           <Link to="/mypictures" style={{color: 'royalblue', marginLeft: "1rem"}}>もっとみる</Link>
-          {pictures.length &&
-            <Grid container>
-              {pictures.map((picture) => {
-                return (
-                  <Card key={picture.id} className={classes.root} style={{margin: "1rem"}}>
-                    <CardHeader
-                      avatar={
-                        <IconButton>
-                          <PanoramaIcon />
-                        </IconButton>
-                      }
-                      action={
-                        <>
-                          <IconButton>
-                            {picture.publish ? <VisibilityIcon /> : <VisibilityOffIcon />}
-                          </IconButton>
-                          <PictureForm picture={picture} setRender={setRender} />
-                        </>
-                      }
-                      title={picture.name}
-                      subheader={`作成日時: ${picture.created_at.substr(0,10)}`}
-                    />
-                    <CardMedia 
-                      className={classes.media}
-                      image={picture.image}
-                      title={picture.name}
-                    />
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        {picture.name}
-                      </Typography>
-                      <Typography variant="body2" color="textSecondary" component="p">
-                        {picture.description}
-                      </Typography>
-                    </CardContent>
-                    <CardActions>
-                      <ViewPicture picture={picture} />
-                    </CardActions>
-                  </Card>
-                )
-              })}
-            </Grid>
-          }
+          <div className={classes.root} style={{marginTop: "1em"}}>
+              {pictures.length
+                ? <GridList cellHeight={200} cors={2} className={classes.gridList}>
+                    {pictures.map((picture) => (
+                      <GridListTile key={picture.id} style={{width: 300, height: 300}}>
+                        <img src={picture.image} alt={picture.name} style={{backgroundColor: "white"}} />
+                        <GridListTileBar
+                          title={picture.name}
+                          subtitle={<span>by: {picture.username}</span>}
+                          classes={{
+                            root: classes.titleBar
+                          }}
+                          actionIcon={
+                            <div style={{display: "flex", color: "rgba(255, 255, 255, 0.54)", marginRight: "0.5em"}}>
+                              <ViewPicture picture={picture} />
+                            </div>
+                          }
+                        />
+                      </GridListTile>
+                    ))}
+                  </GridList>
+                : <p>Loading...</p>
+              }
+            </div>
         </Grid>
         <div style={{height: "5ch"}}></div>
         <Grid style={{margin: "1rem"}}>
@@ -107,7 +88,7 @@ export default function MyPage () {
             <Grid container>
               {albums.map((album) => {
                 return(
-                  <Card key={album.id} className={classes.root} style={{margin: "1rem"}}>
+                  <Card key={album.id} className={styles.root} style={{margin: "1rem"}}>
                     <CardHeader
                       avatar={
                         <IconButton>

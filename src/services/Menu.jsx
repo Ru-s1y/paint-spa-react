@@ -7,7 +7,7 @@ import {
 import { Toolbar } from '@material-ui/core'
 
 import Home from '../components/Home'
-import Album from '../components/Album'
+// import Album from '../components/Album'
 import Picture from '../components/Picture'
 import Paint from '../components/Paint'
 import NavBar from '../components/Navbar'
@@ -17,6 +17,7 @@ import FavoritePage from '../components/FavoritePage'
 import MyPictures from '../components/MyPictures'
 import MyAlbums from '../components/MyAlbums'
 import Error from '../components/Error'
+// import ViewAlbum from '../components/ViewAlbum'
 
 export const UserContext = createContext()
 
@@ -38,7 +39,6 @@ export default function Menu () {
       } else {
         setExp('')
         localStorage.removeItem('exp')
-        // console.log('ログインしてください。')
       }
     } else {
       console.log('expがない')
@@ -56,9 +56,9 @@ export default function Menu () {
               <Route path="/" exact>
                 <Home />
               </Route>
-              <Route path="/album" exact>
+              {/* <Route path="/album" exact>
                 <Album />
-              </Route>
+              </Route> */}
               <Route path="/picture" exact>
                 <Picture />
               </Route>

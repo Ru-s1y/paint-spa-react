@@ -16,6 +16,7 @@ import { UserContext } from '../services/Menu';
 import Thumbnail from '../services/Thumbnail';
 import Favorite from '../services/Favorite';
 import AddAlbum from '../services/AddAlbum';
+// import ViewAlbum from './ViewAlbum';
 
 export default function Album () {
   const classes = cardStyles()
@@ -73,17 +74,16 @@ export default function Album () {
                       {album.description}
                     </Typography>
                   </CardContent>
-                  {user.id &&
-                    <CardActions disableSpacing>
+                  <CardActions disableSpacing>
+                    {user.id &&
                       <Favorite favorite={album} url="albums" />
-                    </CardActions>
-                  }
+                    }
+                    {/* <ViewAlbum album={album} /> */}
+                  </CardActions>
                 </Card>
               )
             })}
-
           </Grid>
-          
         : <p style={{margin: "2rem"}}>{status}</p>
       }
       <Pagination 

@@ -13,6 +13,7 @@ import { Pagination } from '@material-ui/lab';
 import gridStyles from '../design/gridStyles';
 
 import ViewPicture from '../components/ViewPicture';
+import GetTags from '../services/GetTags';
 
 export default function Picture () {
   const [pictures, setPictures] = useState([])
@@ -44,6 +45,11 @@ export default function Picture () {
       <Grid style={{margin: "2rem"}}>
         <h2>ピクチャー一覧</h2>
         <Button variant="contained" color="primary" onClick={() => history.push('/paint')}>ピクチャー作成</Button>
+        <GetTags 
+          setPictures={setPictures} 
+          setCurrentPage={setCurrentPage} 
+          setTotalPages={setTotalPages}
+        />
       </Grid>
       <div className={classes.root} style={{margin: "2rem"}}>
         {pictures.length
