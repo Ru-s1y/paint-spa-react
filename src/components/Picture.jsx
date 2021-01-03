@@ -22,6 +22,7 @@ export default function Picture () {
   const history = useHistory()
   const [status, setStatus] = useState("Loading...")
   const classes = gridStyles()
+  const loggedIn = false
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/pictures`,
@@ -65,7 +66,7 @@ export default function Picture () {
                     }}
                     actionIcon={
                       <div style={{display: "flex", marginRight: "0.5em"}}>
-                        <ViewPicture picture={picture} />
+                        <ViewPicture picture={picture} loggedIn={loggedIn} />
                       </div>
                     }
                   />

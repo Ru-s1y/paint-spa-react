@@ -56,6 +56,7 @@ export default function ViewPicture (props) {
   const [render, setRender] = useState(false)
   const [tags, setTags] = useState({})
   const alert = useAlert()
+  const loggedIn = props.loggedIn
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/tags/search_tags`,
@@ -91,7 +92,7 @@ export default function ViewPicture (props) {
       }
     }).catch(error => {
       console.log(error)
-      alert.show("たく削除に失敗しました。")
+      alert.show("タグ削除に失敗しました。")
     })
     e.preventDefault()
   }
@@ -125,7 +126,14 @@ export default function ViewPicture (props) {
           {tags.length > 0 &&
             <>
               {tags.map((tag) => {
-                return <Chip key={tag.id} label={tag.name} onDelete={(e) => handleDelete(e, tag)} />
+                return (
+                  <>
+                    {loggedIn === true
+                      ? <Chip key={tag.id} label={tag.name} onDelete={(e) => handleDelete(e, tag)} />
+                      : <Chip key={tag.id} label={tag.name} />
+                    }
+                  </>
+                )
               })}
             </>
           }

@@ -14,13 +14,11 @@ import TagsList from '../components/TagsList';
 export default function Home () {
   const classes = gridStyles()
   const [pictures, setPictures] = useState({})
-  // const [albums, setAlbums] = useState({})
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/homes`
       ).then(response => {
         setPictures(response.data.pictures)
-        // setAlbums(response.data.albums)
       }).catch(error => {
         console.log(error)
       })

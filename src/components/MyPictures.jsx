@@ -8,14 +8,9 @@ import {
   GridListTile,
   GridListTileBar,
 } from '@material-ui/core';
-// import VisibilityIcon from '@material-ui/icons/Visibility';
-// import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-// import cardStyles from '../design/cardStyles';
 import PictureForm from '../services/PictureForm';
-// import PanoramaIcon from '@material-ui/icons/Panorama';
 import gridStyles from '../design/gridStyles';
 import { Pagination } from '@material-ui/lab';
-// import GetTags from '../services/GetTags';
 import ViewPicture from './ViewPicture';
 import AddTags from '../services/AddTags'
 
@@ -27,6 +22,7 @@ export default function MyPictures () {
   const [totalPages, setTotalPages] = useState(1)
   const [render, setRender] = useState(false)
   const [status, setStatus] = useState("Loading...")
+  const loggedIn = true
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/mypages/index_pictures`,
@@ -70,7 +66,7 @@ export default function MyPictures () {
                   actionIcon={
                     <div style={{display: "flex", marginRight: "0.5em"}}>
                       <AddTags picture={picture} setRender={setRender} />
-                      <ViewPicture picture={picture} />
+                      <ViewPicture picture={picture} loggedIn={loggedIn} />
                       <PictureForm picture={picture} setRender={setRender} />
                     </div>
                   }

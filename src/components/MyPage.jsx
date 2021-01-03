@@ -54,30 +54,30 @@ export default function MyPage () {
             ピクチャー作成
           </Button>
           <Link to="/mypictures" style={{color: 'royalblue', marginLeft: "1rem"}}>もっとみる</Link>
-          <div className={classes.root} style={{marginTop: "1em"}}>
-              {pictures.length
-                ? <GridList cellHeight={200} cors={2} className={classes.gridList}>
-                    {pictures.map((picture) => (
-                      <GridListTile key={picture.id} style={{width: 300, height: 300}}>
-                        <img src={picture.image} alt={picture.name} style={{backgroundColor: "white"}} />
-                        <GridListTileBar
-                          title={picture.name}
-                          subtitle={<span>by: {picture.username}</span>}
-                          classes={{
-                            root: classes.titleBar
-                          }}
-                          actionIcon={
-                            <div style={{display: "flex", color: "rgba(255, 255, 255, 0.54)", marginRight: "0.5em"}}>
-                              <ViewPicture picture={picture} />
-                            </div>
-                          }
-                        />
-                      </GridListTile>
-                    ))}
-                  </GridList>
-                : <p>Loading...</p>
-              }
-            </div>
+          <div className={classes.root} style={{marginTop: "1em", marginLeft: "1rem"}}>
+            {pictures.length
+              ? <GridList cellHeight={200} cors={2} className={classes.gridList}>
+                  {pictures.map((picture) => (
+                    <GridListTile key={picture.id} style={{width: 300, height: 300}}>
+                      <img src={picture.image} alt={picture.name} style={{backgroundColor: "white"}} />
+                      <GridListTileBar
+                        title={picture.name}
+                        subtitle={<span>by: {picture.username}</span>}
+                        classes={{
+                          root: classes.titleBar
+                        }}
+                        actionIcon={
+                          <div style={{display: "flex", color: "rgba(255, 255, 255, 0.54)", marginRight: "0.5em"}}>
+                            <ViewPicture picture={picture} />
+                          </div>
+                        }
+                      />
+                    </GridListTile>
+                  ))}
+                </GridList>
+              : <p>Loading...</p>
+            }
+          </div>
         </Grid>
         <div style={{height: "5ch"}}></div>
         <Grid style={{margin: "1rem"}}>
