@@ -38,19 +38,6 @@ export default function FavoritePage () {
             </p>
         }
       </div>
-      <div style={{margin: "1rem"}}>
-        <h3>お気に入りアルバム</h3>
-        {object.albums.length
-          ? <></>
-          : <p>
-              お気に入りアルバムがありません。<br/>
-              <Link to="/album" style={{color: "royalblue"}}>
-                アルバム
-              </Link>
-              を探して登録してみましょう！！
-            </p>
-        }
-      </div>
     </div>
   )
 }

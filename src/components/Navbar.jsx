@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { withRouter, useHistory, Link } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 
 import { useTheme } from '@material-ui/core/styles';
 import clsx from 'clsx';
@@ -13,6 +13,8 @@ import {
   ListItem,
   Divider,
   CssBaseline,
+  ListItemText,
+  ListItemIcon,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -35,14 +37,7 @@ const NavBar = (props) => {
   const user = useContext(UserContext);
   const classes = navbarStyles();
   const theme = useTheme();
-  const history = useHistory();
   const [open, setOpen] = useState(false);
-
-  const clickLink = (e, url) => {
-    history.push(url)
-    setOpen(false)
-    e.preventDefault()
-  }
 
   const handleDrawerClose = () => {
     setOpen(false)
@@ -75,41 +70,59 @@ const NavBar = (props) => {
       </div>
       <Divider />
       <List>
-        <ListItem button onClick={e => clickLink(e, '/')}>
-          <IconButton><HomeIcon /></IconButton>
-          <Link to="/">Home</Link>
-        </ListItem >
-        <ListItem button onClick={e => clickLink(e, '/paint')}>
-          <IconButton><BrushIcon /></IconButton>
-          <Link to="/paint">Paint</Link>
-        </ListItem>
-        <ListItem button onClick={e => clickLink(e, '/picture')}>
-          <IconButton><PanoramaIcon /></IconButton>
-          <Link to="/picture">Picture</Link>
-        </ListItem>
-        <ListItem button onClick={e => clickLink(e, '/album')}>
-          <IconButton><MenuBookIcon /></IconButton>
-          <Link to="/album">Album</Link>
-        </ListItem>
+        <Link to="/">
+          <ListItem button onClick={handleDrawerClose}>
+            <ListItemIcon><HomeIcon /></ListItemIcon>
+            <ListItemText primary="Home" />
+          </ListItem >
+        </Link>
+
+        <Link to="/paint">
+          <ListItem button onClick={handleDrawerClose}>
+            <ListItemIcon><BrushIcon /></ListItemIcon>
+            <ListItemText primary="Paint" />
+          </ListItem>
+        </Link>
+        
+        <Link to="/picture">
+          <ListItem button onClick={handleDrawerClose}>
+            <ListItemIcon><PanoramaIcon /></ListItemIcon>
+            <ListItemText primary="Picture" />
+          </ListItem>
+        </Link>
+        {/* <Link to="/album">
+          <ListItem button onClick={handleDrawerClose}>
+            <ListItemIcon><MenuBookIcon /></ListItemIcon>
+            <ListItemText primary="Album" />
+          </ListItem>
+        </Link> */}
         {user.id &&
           <>
             <Divider />
-            <ListItem button onClick={e => clickLink(e, '/mypage')}>
-              <IconButton><AccountCircleIcon /></IconButton>
-              <Link to="/mypage">My Page</Link>
-            </ListItem>
-            <ListItem button onClick={e => clickLink(e, '/mypictures')}>
-              <IconButton><PanoramaIcon /></IconButton>
-              <Link to="/mypictures">My Picture</Link>
-            </ListItem>
-            <ListItem button onClick={e => clickLink(e, '/myalbums')}>
-              <IconButton><MenuBookIcon /></IconButton>
-              <Link to="/myalbums">My Album</Link>
-            </ListItem>
-            <ListItem button onClick={e => clickLink(e, '/favorite')}>
-              <IconButton><FavoriteIcon /></IconButton>
-              <Link to="/favorite">Favorite</Link>
-            </ListItem>
+            <Link to="/mypage">
+              <ListItem button onClick={handleDrawerClose}>
+                <ListItemIcon><AccountCircleIcon /></ListItemIcon>
+                <ListItemText primary="My Page" />
+              </ListItem>
+            </Link>
+            <Link to="/mypictures">
+              <ListItem button onClick={handleDrawerClose}>
+                <ListItemIcon><PanoramaIcon /></ListItemIcon>
+                <ListItemText primary="My Picture" />
+              </ListItem>
+            </Link>
+            <Link to="/myalbums">
+              <ListItem button onClick={handleDrawerClose}>
+                <ListItemIcon><MenuBookIcon /></ListItemIcon>
+                <ListItemText primary="My Album" />
+              </ListItem>
+            </Link>
+            <Link to="/favorite">
+              <ListItem button onClick={handleDrawerClose}>
+                <ListItemIcon><FavoriteIcon /></ListItemIcon>
+                <ListItemText primary="Favorite" />
+              </ListItem>
+            </Link>
           </>
         }
       </List>

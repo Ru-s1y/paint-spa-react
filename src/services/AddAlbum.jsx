@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddAlbum () {
+export default function AddAlbum (props) {
   const [values, setValues] = useState({
     name: '',
     description: '',
@@ -47,23 +47,44 @@ export default function AddAlbum () {
 
   const submitAlbum = (e) => {
     axios.post(`${process.env.REACT_APP_SERVER_URL}/albums`,
-      { params: {
+      { album: {
           name: values.name,
           description: values.description,
       } },
       { withCredentials: true }
       ).then(response => {
-        alert.show(
-          `「${response.data.name}」を作成しました。`,
-          { type: types.SUCCESS }
-        )
-        setModal(false)
+        if (response.data.message) {
+          alert.show()
+        } else {
+          alert.show(
+            `「${response.data.name}」を作成しました。`,
+            { type: types.SUCCESS }
+          )
+          setModal(false)
+          props.setRender(true)
+        }
       }).catch(error => {
         console.log(error)
-        alert.show("アルバム作成に失敗しました。", { type: types.ERROR })
+        showErrorAlert("アルバム作成に失敗しました。")
       })
     e.preventDefault()
   }
+
+  const validationForm = (e) => {
+    if (values.name === '') {
+      return showErrorAlert("名前を入力して下さい。")
+    }
+    submitAlbum(e)
+  }
+
+  const showErrorAlert = (msg) => {
+    alert.show(`${msg}`, { type: types.ERROR })
+  }
+
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+    console.log(event.target.value)
+  };
 
   const handleClose = () => setModal(false)
 
@@ -76,14 +97,14 @@ export default function AddAlbum () {
             label="アルバムの名前" 
             variant="outlined"
             style={{marginBottom: "1em"}}
-            onChange={e => setValues({name: e.target.value})} 
+            onChange={handleChange('name')} 
           />
           <TextField 
             label="アルバムの内容" 
             variant="outlined"
             multiline 
             rows={4} 
-            onChange={e => setValues({description: e.target.value})} 
+            onChange={handleChange('description')} 
           />
           <FormControlLabel
             control={<Switch disabled />}
@@ -98,7 +119,7 @@ export default function AddAlbum () {
           <Button
             variant="contained" 
             color="primary"
-            onClick={submitAlbum}
+            onClick={validationForm}
           >
             アルバム作成
           </Button>

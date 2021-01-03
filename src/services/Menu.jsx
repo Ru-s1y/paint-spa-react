@@ -2,11 +2,12 @@ import React, { useState, useEffect, createContext } from 'react'
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
 } from 'react-router-dom'
+import { Toolbar } from '@material-ui/core'
 
 import Home from '../components/Home'
-import Album from '../components/Album'
+// import Album from '../components/Album'
 import Picture from '../components/Picture'
 import Paint from '../components/Paint'
 import NavBar from '../components/Navbar'
@@ -16,6 +17,7 @@ import FavoritePage from '../components/FavoritePage'
 import MyPictures from '../components/MyPictures'
 import MyAlbums from '../components/MyAlbums'
 import Error from '../components/Error'
+// import ViewAlbum from '../components/ViewAlbum'
 
 export const UserContext = createContext()
 
@@ -37,7 +39,6 @@ export default function Menu () {
       } else {
         setExp('')
         localStorage.removeItem('exp')
-        // console.log('ログインしてください。')
       }
     } else {
       console.log('expがない')
@@ -49,36 +50,45 @@ export default function Menu () {
       <Router>
         <UserContext.Provider value={user}>
           <NavBar setUser={setUser} setExp={setExp} />
-          <div style={{marginTop: "10ch", marginBottom: "5ch"}}>
+          <div style={{marginBottom: "5ch"}}>
+            <Toolbar />
             <Switch>
               <Route path="/" exact>
                 <Home />
               </Route>
-              <Route path="/album" exact>
+              {/* <Route path="/album" exact>
                 <Album />
-              </Route>
+              </Route> */}
               <Route path="/picture" exact>
                 <Picture />
               </Route>
               <Route path="/paint" exact>
                 <Paint />
               </Route>
-              {user.id &&
-                <>
-                  <Route path="/mypage" exact>
-                    <MyPage />
-                  </Route>
-                  <Route path="/favorite" exact>
-                    <FavoritePage />
-                  </Route>
-                  <Route path="/mypictures" exact>
-                    <MyPictures />
-                  </Route>
-                  <Route path="/myalbums" exact>
-                    <MyAlbums />
-                  </Route>
-                </>
-              }
+              <Route path="/mypage" exact>
+                {user.id
+                  ? <MyPage />
+                  : <Error />
+                }
+              </Route>
+              <Route path="/favorite" exact>
+                {user.id
+                  ? <FavoritePage />
+                  : <Error />
+                }
+              </Route>
+              <Route path="/mypictures" exact>
+                {user.id
+                  ? <MyPictures />
+                  : <Error />
+                }
+              </Route>
+              <Route path="/myalbums" exact>
+                {user.id
+                  ? <MyAlbums />
+                  : <Error />
+                }
+              </Route>
               <Route component={Error} />
             </Switch>
           </div>

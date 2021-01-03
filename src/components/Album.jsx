@@ -16,6 +16,7 @@ import { UserContext } from '../services/Menu';
 import Thumbnail from '../services/Thumbnail';
 import Favorite from '../services/Favorite';
 import AddAlbum from '../services/AddAlbum';
+// import ViewAlbum from './ViewAlbum';
 
 export default function Album () {
   const classes = cardStyles()
@@ -24,6 +25,7 @@ export default function Album () {
   const [status, setStatus] = useState("Loading...")
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
+  const [render, setRender] = useState(false)
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/albums`, 
@@ -32,11 +34,12 @@ export default function Album () {
         setAlbums(response.data.albums)
         setCurrentPage(response.data.meta.current_page)
         setTotalPages(response.data.meta.total_pages)
+        setRender(false)
       }).catch(error => {
         console.log(error)
       })
       setStatus("アルバムがありません。")
-  }, [currentPage])
+  }, [currentPage, render])
 
   const changePage = (e, page) => {
     setCurrentPage(page)
@@ -47,7 +50,7 @@ export default function Album () {
       <Grid style={{margin: "2rem"}}>
         <h2>アルバム一覧</h2>
         {user.id &&
-          <AddAlbum />
+          <AddAlbum setRender={setRender} />
         }
       </Grid>
       {albums.length
@@ -71,17 +74,16 @@ export default function Album () {
                       {album.description}
                     </Typography>
                   </CardContent>
-                  {user.id &&
-                    <CardActions disableSpacing>
+                  <CardActions disableSpacing>
+                    {user.id &&
                       <Favorite favorite={album} url="albums" />
-                    </CardActions>
-                  }
+                    }
+                    {/* <ViewAlbum album={album} /> */}
+                  </CardActions>
                 </Card>
               )
             })}
-
           </Grid>
-          
         : <p style={{margin: "2rem"}}>{status}</p>
       }
       <Pagination 
