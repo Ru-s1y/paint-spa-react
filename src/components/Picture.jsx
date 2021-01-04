@@ -16,7 +16,7 @@ import ViewPicture from '../components/ViewPicture';
 import GetTags from '../services/GetTags';
 import CreateTag from '../services/CreateTag';
 import AddTags from '../services/AddTags';
-import UserContext from '../services/Menu';
+import { UserContext } from '../services/Menu';
 
 export default function Picture () {
   const [pictures, setPictures] = useState([])
