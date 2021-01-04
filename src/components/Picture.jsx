@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
@@ -16,6 +16,7 @@ import ViewPicture from '../components/ViewPicture';
 import GetTags from '../services/GetTags';
 import CreateTag from '../services/CreateTag';
 import AddTags from '../services/AddTags';
+import UserContext from '../services/Menu';
 
 export default function Picture () {
   const [pictures, setPictures] = useState([])
@@ -26,6 +27,7 @@ export default function Picture () {
   const classes = gridStyles()
   const loggedIn = false
   const [render, setRender] = useState(false)
+  const user = useContext(UserContext)
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/pictures`,
@@ -80,7 +82,9 @@ export default function Picture () {
                     }}
                     actionIcon={
                       <div style={{display: "flex", marginRight: "0.5em"}}>
-                        <AddTags picture={picture} setRender={setRender} />
+                        {user.id &&
+                          <AddTags picture={picture} setRender={setRender} />
+                        }
                         <ViewPicture picture={picture} loggedIn={loggedIn} />
                       </div>
                     }

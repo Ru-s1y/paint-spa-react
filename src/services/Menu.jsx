@@ -41,7 +41,7 @@ export default function Menu () {
         localStorage.removeItem('exp')
       }
     } else {
-      console.log('expがない')
+      console.log('exp is not exist')
     }
   }, [exp])
 
