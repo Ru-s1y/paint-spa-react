@@ -122,17 +122,17 @@ export default function ViewPicture (props) {
             </div>
           </div>
         </div>
-        <div style={{marginRight: "1em", overflowX: "auto"}}>
+        <div style={{marginRight: "1em", overflowX: "auto", display: "flex"}}>
           {tags.length > 0 &&
             <>
               {tags.map((tag) => {
                 return (
-                  <>
+                  <div key={tag.id} style={{marginRight: 4}}>
                     {loggedIn === true
-                      ? <Chip key={tag.id} label={tag.name} onDelete={(e) => handleDelete(e, tag)} />
-                      : <Chip key={tag.id} label={tag.name} />
+                      ? <Chip label={tag.name} onDelete={(e) => handleDelete(e, tag)} />
+                      : <Chip label={tag.name} />
                     }
-                  </>
+                  </div>
                 )
               })}
             </>

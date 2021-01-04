@@ -54,88 +54,37 @@ export default function MyPictures () {
     <div className={classes.root} style={{margin: "2rem"}}>
       {pictures.length
         ? <GridList cellHeight={200} cors={2} className={classes.gridList}>
-            {pictures.map((picture) => (
-              <GridListTile key={picture.id} style={{width: 300, height: 300}}>
-                <img src={picture.image} alt={picture.name} style={{backgroundColor: "white"}} />
-                <GridListTileBar
-                  title={picture.name}
-                  subtitle={<span>by: {picture.username}</span>}
-                  classes={{
-                    root: classes.titleBar
-                  }}
-                  actionIcon={
-                    <div style={{display: "flex", marginRight: "0.5em"}}>
-                      <AddTags picture={picture} setRender={setRender} />
-                      <ViewPicture picture={picture} loggedIn={loggedIn} />
-                      <PictureForm picture={picture} setRender={setRender} />
-                    </div>
-                  }
-                />
-              </GridListTile>
-            ))}
+            {pictures.map((picture) => {
+              return (
+                <GridListTile key={picture.id} style={{width: 300, height: 300}}>
+                  <img src={picture.image} alt={picture.name} style={{backgroundColor: "white"}} />
+                  <GridListTileBar
+                    title={picture.name}
+                    subtitle={<span>by: {picture.username}</span>}
+                    classes={{
+                      root: classes.titleBar
+                    }}
+                    actionIcon={
+                      <div style={{display: "flex", marginRight: "0.5em"}}>
+                        <AddTags picture={picture} setRender={setRender} />
+                        <ViewPicture picture={picture} loggedIn={loggedIn} />
+                        <PictureForm picture={picture} setRender={setRender} />
+                      </div>
+                    }
+                  />
+                </GridListTile>
+              )
+            })}
           </GridList>
         : <p style={{margin: "2rem"}}>{status}</p>
       }
     </div>
-    <Pagination
-      style={{ marginLeft: "2rem" }}
-      count={totalPages} 
-      showFirstButton shape="rounded" 
-      onChange={changePage}
-    />
-  </div>
-    // <div style={{margin: "2rem"}}>
-    //   <h2>マイピクチャー</h2>
-    //   {pictures.length
-    //     ? <Grid container>
-    //         {pictures.map((picture) => {
-    //           return (
-    //             <Card key={picture.id} className={classes.root} style={{margin: "1rem"}}>
-    //               <CardHeader
-    //                 avatar={
-    //                   <IconButton>
-    //                     <PanoramaIcon />
-    //                   </IconButton>
-    //                 }
-    //                 action={
-    //                   <>
-    //                     <IconButton>
-    //                       {picture.publish ? <VisibilityIcon /> : <VisibilityOffIcon />}
-    //                     </IconButton>
-    //                     <PictureForm picture={picture} setRender={setRender} />
-    //                   </>
-    //                 }
-    //                 title={picture.username}
-    //                 subheader={`作成日時: ${picture.created_at.substr(0,10)}`}
-    //               />
-    //               <CardMedia
-    //                 className={classes.media}
-    //                 image={picture.image}
-    //                 title={picture.name}
-    //               />
-    //               <CardContent>
-    //                 <Typography gutterBottom variant="h5" component="h2">
-    //                   {picture.name}
-    //                 </Typography>
-    //                 <Typography variant="body2" color="textSecondary" component="p">
-    //                   {picture.description}
-    //                 </Typography>
-    //               </CardContent>
-    //               <CardActions>
-    //                 <ViewPicture picture={picture} />
-    //               </CardActions>
-    //             </Card>
-    //           )
-    //         })}
-    //       </Grid>
-    //     : <p></p>
-    //   }
-    //   <Pagination 
-    //     style={{marginLeft: "2rem"}}
-    //     count={totalPages} 
-    //     showFirstButton shape="rounded" 
-    //     onChange={changePage}
-    //   />
-    // </div>
+      <Pagination
+        style={{ marginLeft: "2rem" }}
+        count={totalPages} 
+        showFirstButton shape="rounded" 
+        onChange={changePage}
+      />
+    </div>
   )
 }

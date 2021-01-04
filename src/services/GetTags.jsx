@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'flex-start',
     flexWrap: 'wrap',
     overflowX: 'auto',
-    height: 150,
+    maxHeight: 150,
     '& > *': {
       margin: theme.spacing(0.5),
     },
@@ -128,7 +128,7 @@ export default function GetTags (props) {
       <div style={{marginBottom: "1em", marginTop: "1em"}}>
         <Paper component="form" className={classes.form}>
           <InputBase
-          value={value.name}
+            value={value.name}
             className={classes.input}
             placeholder="タグ検索"
             onChange={changeValue}

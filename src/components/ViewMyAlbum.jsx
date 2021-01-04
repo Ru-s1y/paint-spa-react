@@ -15,6 +15,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import AddAlbum from '../services/AddAlbum';
 import RemoveMylist from '../services/RemoveMylist';
+import ViewPicture from '../components/ViewPicture'
 
 const useStyles = makeStyles((theme) => ({
   details: {
@@ -31,6 +32,7 @@ export default function ViewMyAlbum (props) {
   const containerWidth = window.innerWidth - 240
   const alert = useAlert()
   const [render, setRender] = useState(false)
+  const loggedIn = true
 
   useEffect(() => {
     if (album.id) {
@@ -56,6 +58,7 @@ export default function ViewMyAlbum (props) {
       {album.id
         ? <div>
           <h2>{album.name}</h2>
+          <AddAlbum setRender={setRender} />
           {pictures.length
             ? <Grid container style={{width: containerWidth}}>
                 {pictures.map((picture) => {
@@ -77,6 +80,7 @@ export default function ViewMyAlbum (props) {
                         </CardContent>
                         <CardActions disableSpacing>
                           <RemoveMylist album={album} picture={picture} setRender={setRender} />
+                          <ViewPicture picture={picture} loggedIn={loggedIn} />
                         </CardActions>
                       </div>
                     </Card>
