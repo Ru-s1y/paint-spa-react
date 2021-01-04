@@ -53,7 +53,7 @@ export default function MyPage () {
           <Button variant="contained" color="primary" onClick={() => history.push('/paint')}>
             ピクチャー作成
           </Button>
-          <Link to="/mypictures" style={{color: 'royalblue', marginLeft: "1rem"}}>もっとみる</Link>
+          <Link to="/mypictures" style={{color: 'royalblue', marginLeft: "1rem"}}>もっとみる...</Link>
           <div className={classes.root} style={{marginTop: "1em", marginLeft: "1rem"}}>
             {pictures.length
               ? <GridList cellHeight={200} cors={2} className={classes.gridList}>
@@ -83,7 +83,7 @@ export default function MyPage () {
         <Grid style={{margin: "1rem"}}>
           <h3>マイアルバム</h3>
           <AddAlbum setRender={setRender} />
-          <Link to="/myalbums" style={{color: 'royalblue', marginLeft: "1rem"}}>もっとみる</Link>
+          <Link to="/myalbums" style={{color: 'royalblue', marginLeft: "1rem"}}>もっとみる...</Link>
           {albums.length &&
             <Grid container>
               {albums.map((album) => {

@@ -25,38 +25,35 @@ export default function FavoritePage () {
 
   return (
     <div style={{margin: "2rem"}}>
-      <h2>お気に入り一覧</h2>
-      <div style={{margin: "1rem"}}>
-        <h3>お気に入りピクチャー</h3>
-        {pictures.length
-          ? <GridList cellHeight={200} cors={2} className={classes.gridList}>
-              {pictures.map((picture) => (
-                <GridListTile key={picture.id} style={{width: 300, height: 300}}>
-                  <img src={picture.image} alt={picture.name} style={{backgroundColor: "white"}} />
-                  <GridListTileBar
-                    title={picture.name}
-                    subtitle={<span>by: {picture.username}</span>}
-                    classes={{
-                      root: classes.titleBar
-                    }}
-                    actionIcon={
-                      <div style={{display: "flex", color: "rgba(255, 255, 255, 0.54)", marginRight: "0.5em"}}>
-                        <ViewPicture picture={picture} />
-                      </div>
-                    }
-                  />
-                </GridListTile>
-              ))}
-              </GridList>
-          : <p>
-              お気に入りピクチャーがありません。<br/>
-              <Link to="/picture" style={{color: "royalblue"}}>
-                ピクチャー
-              </Link>
-              を探して登録してみましょう！！
-            </p>
-        }
-      </div>
+      <h3>お気に入りピクチャー</h3>
+      {pictures.length
+        ? <GridList cellHeight={200} cors={2} className={classes.gridList}>
+            {pictures.map((picture) => (
+              <GridListTile key={picture.id} style={{width: 300, height: 300}}>
+                <img src={picture.image} alt={picture.name} style={{backgroundColor: "white"}} />
+                <GridListTileBar
+                  title={picture.name}
+                  subtitle={<span>by: {picture.username}</span>}
+                  classes={{
+                    root: classes.titleBar
+                  }}
+                  actionIcon={
+                    <div style={{display: "flex", color: "rgba(255, 255, 255, 0.54)", marginRight: "0.5em"}}>
+                      <ViewPicture picture={picture} />
+                    </div>
+                  }
+                />
+              </GridListTile>
+            ))}
+            </GridList>
+        : <p>
+            お気に入りピクチャーがありません。<br/>
+            <Link to="/picture" style={{color: "royalblue"}}>
+              ピクチャー
+            </Link>
+            を探して登録してみましょう！！
+          </p>
+      }
     </div>
   )
 }
