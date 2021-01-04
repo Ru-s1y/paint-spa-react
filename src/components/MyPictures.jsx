@@ -13,6 +13,7 @@ import gridStyles from '../design/gridStyles';
 import { Pagination } from '@material-ui/lab';
 import ViewPicture from './ViewPicture';
 import AddTags from '../services/AddTags'
+import CreateTag from '../services/CreateTag';
 
 export default function MyPictures () {
   const classes = gridStyles()
@@ -35,6 +36,7 @@ export default function MyPictures () {
         setCurrentPage(response.data.meta.current_page)
         setTotalPages(response.data.meta.total_pages)
         setStatus("ピクチャーがありません。")
+        setRender(false)
       }).catch(error => {
         console.log(error)
         setStatus("ピクチャー取得に失敗しました。")
@@ -49,7 +51,17 @@ export default function MyPictures () {
     <div style={{marginBottom: "2rem"}}>
     <Grid style={{margin: "2rem"}}>
       <h2>マイピクチャー</h2>
-      <Button variant="contained" color="primary" onClick={() => history.push('/paint')}>ピクチャー作成</Button>
+      <div style={{display: "flex"}}>
+        <Button 
+          variant="contained" 
+          color="primary" 
+          style={{marginRight: "1em"}}
+          onClick={() => history.push('/paint')}
+        >
+          ピクチャー作成
+        </Button>
+        <CreateTag setRender={setRender} />
+      </div>
     </Grid>
     <div className={classes.root} style={{margin: "2rem"}}>
       {pictures.length

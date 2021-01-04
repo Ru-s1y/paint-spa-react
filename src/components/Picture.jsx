@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
@@ -14,6 +14,9 @@ import gridStyles from '../design/gridStyles';
 
 import ViewPicture from '../components/ViewPicture';
 import GetTags from '../services/GetTags';
+import CreateTag from '../services/CreateTag';
+import AddTags from '../services/AddTags';
+import { UserContext } from '../services/Menu';
 
 export default function Picture () {
   const [pictures, setPictures] = useState([])
@@ -23,6 +26,8 @@ export default function Picture () {
   const [status, setStatus] = useState("Loading...")
   const classes = gridStyles()
   const loggedIn = false
+  const [render, setRender] = useState(false)
+  const user = useContext(UserContext)
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/pictures`,
@@ -31,11 +36,12 @@ export default function Picture () {
         setPictures(response.data.pictures)
         setCurrentPage(response.data.meta.current_page)
         setTotalPages(response.data.meta.total_pages)
+        setRender(false)
       }).catch(error => {
         console.log(error)
       })
       setStatus("ピクチャーがありません。")
-  }, [currentPage])
+  }, [currentPage, render])
 
   const changePage = (e, page) => {
     setCurrentPage(page)
@@ -45,7 +51,17 @@ export default function Picture () {
     <div style={{marginBottom: "2rem"}}>
       <Grid style={{margin: "2rem"}}>
         <h2>ピクチャー一覧</h2>
-        <Button variant="contained" color="primary" onClick={() => history.push('/paint')}>ピクチャー作成</Button>
+        <div style={{display: "flex"}}>
+          <Button 
+            variant="contained" 
+            color="primary" 
+            style={{marginRight: "1em"}}
+            onClick={() => history.push('/paint')}
+          >
+            ピクチャー作成
+          </Button>
+          <CreateTag setRender={setRender} />
+        </div>
         <GetTags 
           setPictures={setPictures} 
           setCurrentPage={setCurrentPage} 
@@ -66,6 +82,9 @@ export default function Picture () {
                     }}
                     actionIcon={
                       <div style={{display: "flex", marginRight: "0.5em"}}>
+                        {user.id &&
+                          <AddTags picture={picture} setRender={setRender} />
+                        }
                         <ViewPicture picture={picture} loggedIn={loggedIn} />
                       </div>
                     }
