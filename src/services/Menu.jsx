@@ -50,7 +50,8 @@ export default function Menu () {
       <Router>
         <UserContext.Provider value={user}>
           <NavBar setUser={setUser} setExp={setExp} />
-          <div style={{marginBottom: "5ch"}}>
+          {/* <div style={{marginBottom: "5ch"}}> */}
+          <div>
             <Toolbar />
             <Switch>
               <Route path="/" exact>
