@@ -19,7 +19,7 @@ const styles = {
   bottom: 0,
   left: 0,
   margin: "auto",
-  width: 300,
+  width: 400,
   height: 300,
   // border: "solid 1px blue",
 }
@@ -46,6 +46,7 @@ export default function MainVisual () {
           <p style={{fontSize: 20}}>ドット絵の作成・投稿アプリ</p>
           <p>インストール不要ですぐ使える。</p>
           <Button variant="contained" color="primary" onClick={clickButton}>描いてみる</Button>
+          <p>※投稿機能を利用するにはログインする必要があります。</p>
         </div>
       </div>
     </div>

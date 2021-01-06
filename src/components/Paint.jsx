@@ -250,7 +250,6 @@ export default function Paint () {
     } else {
       subRef.current.clearRect(0, 0, width, height)
     }
-    console.log(e.target.checked)
   }
 
   const gridFalse = () => {
@@ -319,7 +318,7 @@ export default function Paint () {
   return(
     <div>
       <div>
-        <div style={{textAlign: "center"}}>
+        <div style={{textAlign: "center", marginTop: "1em", marginBottom: "1em"}}>
           <IconButton onClick={() => setOpen(true)}>
             <SettingsIcon />
           </IconButton>
