@@ -6,6 +6,7 @@ import {
   GridListTile,
   GridListTileBar,
 } from '@material-ui/core';
+import MainVisual from '../components/MainVisual'
 
 import ViewPicture from './ViewPicture';
 import gridStyles from '../design/gridStyles';
@@ -26,11 +27,14 @@ export default function Home () {
 
   return(
     <div>
+      <div style={{height: 512}}>
+        <MainVisual />
+      </div>
       <div style={{margin: "2rem"}}>
-        <h2>ピックアップ</h2>
         <div>
+          <div style={{borderTop: "solid 1px lightgray"}} />
           <div style={{marginLeft: "2rem"}}>
-            <h3>新着ピクチャー</h3>
+            <h2>新着ピクチャー</h2>
             <Link to="/picture" style={{color: "royalblue"}}>もっとみる...</Link>
             <div className={classes.root} style={{marginTop: "1em"}}>
               {pictures.length
@@ -57,42 +61,12 @@ export default function Home () {
               }
             </div>
           </div>
-          <div style={{height: "5ch"}}></div>
+          <div style={{height: "5ch", borderBottom: "solid 1px lightgray"}} />
           <div style={{marginLeft: "2rem"}}>
-            <h3>タグ一覧</h3>
+            <h2>新着タグ</h2>
             <TagsList />
           </div>
-          {/* <div style={{marginLeft: "2rem"}}>
-            <h3>アルバム</h3>
-            <Link to="/picture" style={{color: 'royalblue'}}>もっとみる...</Link>
-            <div>
-              {albums.length
-                ? <Grid container>
-                  {albums.map((album) => {
-                    return (
-                      <Card
-                        key={album.id}
-                        style={{marginRight: "1rem", marginBottom: "1rem"}}
-                      >
-                        <Thumbnail album={album} />
-                        <div className={styles.details}>
-                          <CardContent className={styles.content}>
-                            <Typography component="h5" variant="h5">
-                              {album.name}
-                            </Typography>
-                            <Typography variant="subtitle1" color="textSecondary">
-                              {album.description}
-                            </Typography>
-                          </CardContent>
-                        </div>
-                      </Card>
-                    )
-                  })}
-                  </Grid>
-                : <p>Loading...</p>
-              }
-            </div>
-          </div> */}
+          <div style={{height: "5ch", borderBottom: "solid 1px lightgray"}} />
         </div>
       </div>
     </div>

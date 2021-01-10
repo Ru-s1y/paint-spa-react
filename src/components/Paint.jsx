@@ -182,6 +182,7 @@ export default function Paint () {
     }
   }
 
+  // 消しゴム機能OFF
   const eraserFalse = () => {
     contextRef.current.globalCompositeOperation = 'source-over'
     setEraserFlg('OFF')
@@ -211,28 +212,37 @@ export default function Paint () {
 
   // ピクセルを大きく
   const addPixel = () => {
-    setPixel(pixel * 2)
+    if (pixel < 32) {
+      setPixel(pixel * 2)
+      gridFalse()
+    }
   }
 
   // ピクセルを小さく
   const subtractPixel = () => {
     if (pixel > 2) {
       setPixel(pixel / 2)
+      gridFalse()
     }
   }
 
   // ピクセル数を増やす
   const addDpr = () => {
-    setDpr(dpr * 2)
+    if (dpr < 256) {
+      setDpr(dpr * 2)
+      gridFalse()
+    }
   }
 
   // ピクセル数を減らす
   const subtractDpr = () => {
     if (dpr > 8) {
       setDpr(dpr / 2)
+      gridFalse()
     }
   }
 
+  // グリッド表示の切り替え
   const toggleGrid = e => {
     setGrid(e.target.checked)
     if (e.target.checked) {
@@ -240,6 +250,10 @@ export default function Paint () {
     } else {
       subRef.current.clearRect(0, 0, width, height)
     }
+  }
+
+  const gridFalse = () => {
+    setGrid(false)
   }
   
   const drawer = (
@@ -304,7 +318,7 @@ export default function Paint () {
   return(
     <div>
       <div>
-        <div style={{textAlign: "center"}}>
+        <div style={{textAlign: "center", marginTop: "1em", marginBottom: "1em"}}>
           <IconButton onClick={() => setOpen(true)}>
             <SettingsIcon />
           </IconButton>

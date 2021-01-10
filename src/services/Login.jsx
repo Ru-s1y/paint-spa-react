@@ -67,7 +67,7 @@ export default function Login (props) {
         console.log(response)
       }).catch(error => {
         console.log(error)
-        alert.show('ログインに失敗しました。', { type: types.ERROR })
+        showAlert("ログインに失敗しました。入力項目を確認してください。")
       })
     e.preventDefault()
   }
@@ -90,6 +90,20 @@ export default function Login (props) {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+  const validateInputValue = (event) => {
+    if (values.email === '') {
+      return showAlert("メールアドレスを入力してください。")
+    } else if (values.password === '') {
+      return showAlert("パスワードを入力してください。")
+    } else {
+      submitLogin(event)
+    }
+  }
+
+  const showAlert = (msg) => {
+    alert.show(`${msg}`, { type: types.ERROR })
+  }
 
   const modalForm = (
     <div className={classes.paper}>
@@ -126,7 +140,7 @@ export default function Login (props) {
             style={{marginTop: "1em"}} 
             variant="contained" 
             color="primary"
-            onClick={(e) => submitLogin(e)}
+            onClick={validateInputValue}
           >ログイン</Button>
         </div>
       </form>
