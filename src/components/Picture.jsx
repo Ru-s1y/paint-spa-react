@@ -60,15 +60,15 @@ export default function Picture () {
           >
             ピクチャー作成
           </Button>
-          <CreateTag setRender={setRender} />
+          {user.id &&
+            <CreateTag setRender={setRender} />
+          }
         </div>
-        {user.id &&
-          <GetTags 
-            setPictures={setPictures} 
-            setCurrentPage={setCurrentPage} 
-            setTotalPages={setTotalPages}
-          />
-        }
+        <GetTags 
+          setPictures={setPictures} 
+          setCurrentPage={setCurrentPage} 
+          setTotalPages={setTotalPages}
+        />
       </Grid>
       <div className={classes.root} style={{margin: "2rem"}}>
         {pictures.length
