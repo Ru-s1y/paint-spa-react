@@ -62,11 +62,13 @@ export default function Picture () {
           </Button>
           <CreateTag setRender={setRender} />
         </div>
-        <GetTags 
-          setPictures={setPictures} 
-          setCurrentPage={setCurrentPage} 
-          setTotalPages={setTotalPages}
-        />
+        {user.id &&
+          <GetTags 
+            setPictures={setPictures} 
+            setCurrentPage={setCurrentPage} 
+            setTotalPages={setTotalPages}
+          />
+        }
       </Grid>
       <div className={classes.root} style={{margin: "2rem"}}>
         {pictures.length

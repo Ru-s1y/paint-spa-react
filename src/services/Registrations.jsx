@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react'
-import axios from 'axios'
-import { useAlert, types } from 'react-alert'
+import React, { useState, useRef } from 'react';
+import axios from 'axios';
+import { useAlert, types } from 'react-alert';
 import {
   TextField,
   FormControl,
